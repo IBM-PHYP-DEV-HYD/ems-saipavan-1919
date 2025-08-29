@@ -5,12 +5,18 @@ using namespace std;
 #include"../../generic-deque-saipavan-1919-1/code/src/node_class.H"
 #include"../../generic-deque-saipavan-1919-1/code/src/deque_class.H"
 #include"ExtDeque.H"
+#include"XyzUtils.H"
+#include"XyzEmployee.H"
 
 
 int main() {
 	cout << "Hello world..!" << endl;
+	//XyzFullTimeEmployee x("a", "b", "c", "d");
+	XyzFullTimeEmployee x(1);
+	cout << x << endl;
+	getRandomName();
 	//Deque<int> d1;
-	ExtDeque<int> d2(3);
+	/*ExtDeque<int> d2(3);
 	d2.fwdTraverse();
 	int ind = 2;
 	int val = 1;
@@ -24,6 +30,6 @@ int main() {
 		d2.remNodeAtInd(ind);
 		d2.fwdTraverse();
 	}
-	//d2.sample(val);
+	//d2.sample(val);*/
 	return 0;
 }
