@@ -14,7 +14,10 @@ int main() {
 	//XyzFullTimeEmployee x("a", "b", "c", "d");
 	XyzFullTimeEmployee x(1);
 	cout << x << endl;
-	getRandomName();
+	XyzContractorEmployee y(2);
+	cout << y << endl;
+	XyzInternEmployee z(3);
+	cout << z << endl;
 	//Deque<int> d1;
 	/*ExtDeque<int> d2(3);
 	d2.fwdTraverse();
