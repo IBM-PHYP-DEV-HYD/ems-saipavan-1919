@@ -8,7 +8,21 @@ class ExtDeque: public Deque<type> {
 		~ExtDeque();
 		void addNodeAtInd(int, type);
 		void remNodeAtInd(int);
+		//friend ostream & operator<<(ostream &, ExtDeque<type> &);
 };
+
+/*template <class type>
+ostream & operator<<(ostream & out, ExtDeque<type> & SParm) {
+	// static_cast is a type casting operator converts expression to specified type
+	// static_cast<type>(expression), useful for derived -> base up casting
+	out << "operator<< of ExtDeque" << endl;
+	//out << static_cast<Deque<type>&>(SParm);
+	//out << SParm.getTotalLeaves() << "\t|";
+	//out << SParm.getAvailedLeaves() << "\t|";
+	return out;
+}
+*/
+
 template <class type>
 ExtDeque<type>::ExtDeque() {
 	// constructor

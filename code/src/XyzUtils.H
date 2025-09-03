@@ -1,7 +1,7 @@
 #include<random>
 #include"XyzRandData.H"
 
-string * string_split(string strParm, char delimiterParm) {
+string * string_split(string strParm, char delimiterParm, int * noOfOccurancePtrParm=NULL) {
 	// this function splits a given string with the delimiterParm and returns list of strings
 	unsigned int sOccurance = 0;
 	for(int i=0;strParm[i]!='\0';i++) {
@@ -10,17 +10,36 @@ string * string_split(string strParm, char delimiterParm) {
 	}
 	if(!sOccurance)
 		return NULL;
+	if(noOfOccurancePtrParm!=NULL) // returns no.of strings using a pointer
+		*noOfOccurancePtrParm = sOccurance;
 	string * sSplitStrsPtr = new string[sOccurance];
 	unsigned int strsIndex = 0;
+	sSplitStrsPtr[0] = "";
 	for(int i=0;strParm[i]!='\0';i++) {
-		if(strParm[i] == delimiterParm && i > 0) {
+		if((strParm[i] == delimiterParm) && (i > 0)) {
+			sSplitStrsPtr[strsIndex] += '\0';
 			strsIndex++;
+			sSplitStrsPtr[strsIndex] = "";
 			continue;
 		}
 		sSplitStrsPtr[strsIndex] += strParm[i];
 	}
 	return sSplitStrsPtr;
 }
+
+unsigned int fetchEmpIdVal(string empIdParm) {
+	// this function fetches only ID value from the employee id string
+	string sIdVal;
+	for(int i=0;empIdParm[i]!='\0';i++) {
+		if(empIdParm[i]>'0' && empIdParm[i]<='9') {
+			sIdVal += empIdParm[i];
+		}
+		//sIdVal += '\0';
+	}
+	cout << sIdVal << endl;
+    return stoi(sIdVal);
+}
+
 
 
 namespace RandEmpDataGen {
@@ -39,6 +58,7 @@ namespace RandEmpDataGen {
 		// this function generates random name and returns it
 		// based on the gender of employee, the name will be picked from predefined lists
 		string sName = first_names[GenderParm][getRandomNumber(0,NUM_NAMES)];
+		sName += " ";
 		sName += last_names[GenderParm][getRandomNumber(0,NUM_NAMES)];
 		return sName;
 	}
@@ -87,6 +107,7 @@ namespace RandEmpDataGen {
 		unsigned int sMonth = stoi(dobList[1]);
 		unsigned int sDate = stoi(dobList[0]);
 		delete []dobList;
+		dobList = NULL;
 		sYear = getRandomNumber(sYear, EMP_CURYEAR-21);
 		sMonth = getRandomNumber(1,13);
 		sDate = getRandomNumber(1,28);
@@ -109,5 +130,15 @@ namespace RandEmpDataGen {
 	string getRandomEmpBranch() {
 		return BRANCH_NAMES[getRandomNumber(0, NUM_BRANCHES)];
 	}
-
 }// end of namespace
+
+
+unsigned int getNumOfEmps() {
+	// this function asks user input for number of employees and returns its value
+	unsigned int sNumEmps;
+	cout << "Enter number of Employees : ";
+	cin >> sNumEmps;
+	if(checkFixCinErr())
+		return getNumOfEmps();
+	return sNumEmps;
+}
