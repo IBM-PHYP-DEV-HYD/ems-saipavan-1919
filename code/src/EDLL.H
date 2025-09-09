@@ -1,49 +1,48 @@
+#ifndef EDLL_H
+#define EDLL_H
+
+#include<iostream>
+using namespace std;
+
+//#include"../../generic-deque-saipavan-1919-1/code/src/common.H"
+int checkFixCinErr();
+#include"../../generic-deque-saipavan-1919-1/code/src/node_class.H"
+#include"../../generic-deque-saipavan-1919-1/code/src/deque_class.H"
+
 template <class type>
-class ExtDeque: public Deque<type> {
+class EDLL: public Deque<type> {
 	// ExtDeque class : derived class from Deque class
 	// contains methods to add and remove nodes at a index position
 	public:
-		ExtDeque();
-		ExtDeque(int);
-		~ExtDeque();
+		EDLL();
+		EDLL(int);
+		~EDLL();
 		void addNodeAtInd(int, type);
 		void remNodeAtInd(int);
 		//friend ostream & operator<<(ostream &, ExtDeque<type> &);
 };
 
-/*template <class type>
-ostream & operator<<(ostream & out, ExtDeque<type> & SParm) {
-	// static_cast is a type casting operator converts expression to specified type
-	// static_cast<type>(expression), useful for derived -> base up casting
-	out << "operator<< of ExtDeque" << endl;
-	//out << static_cast<Deque<type>&>(SParm);
-	//out << SParm.getTotalLeaves() << "\t|";
-	//out << SParm.getAvailedLeaves() << "\t|";
-	return out;
-}
-*/
-
 template <class type>
-ExtDeque<type>::ExtDeque() {
+EDLL<type>::EDLL() {
 	// constructor
-	cout << "ExtDeque constructor" << endl;
+	cout << "EDLL constructor" << endl;
 }
 
 template <class type>
-ExtDeque<type>::ExtDeque(int sNoOfNodesParm):Deque<type>(sNoOfNodesParm) {
+EDLL<type>::EDLL(int sNoOfNodesParm):Deque<type>(sNoOfNodesParm) {
 	// constructor : to create n number of nodes
-	cout << "ExtDeque constructor with n nodes" << endl;
+	cout << "EDLL constructor with n nodes" << endl;
 }
 
 template <class type>
-ExtDeque<type>:: ~ExtDeque() {
+EDLL<type>:: ~EDLL() {
 	// destructor
-	cout << "ExtDeque Destructor" << endl;
+	cout << "EDLL Destructor" << endl;
 }
 
 
 template <class type>
-void ExtDeque<type>::addNodeAtInd(int indexParm, type DataParm) {
+void EDLL<type>::addNodeAtInd(int indexParm, type DataParm) {
 	// this function adds a node in deque at a given index.
 	cout << "Adding node at index pos : " << indexParm << endl;
 	if(indexParm > this->getDequeSize()) {
@@ -73,7 +72,7 @@ void ExtDeque<type>::addNodeAtInd(int indexParm, type DataParm) {
 }
 
 template <class type>
-void ExtDeque<type>::remNodeAtInd(int indexParm) {
+void EDLL<type>::remNodeAtInd(int indexParm) {
 	// this function removes a node in deque at a given index.
 	cout << "Removing node at index pos : " << indexParm << endl;
 	if(indexParm > this->getDequeSize()-1) {
@@ -96,3 +95,5 @@ void ExtDeque<type>::remNodeAtInd(int indexParm) {
 		this->pDecrDequeSize();
 	}
 }
+
+#endif

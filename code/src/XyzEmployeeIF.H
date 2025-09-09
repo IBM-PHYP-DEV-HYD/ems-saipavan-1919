@@ -1,3 +1,8 @@
+#ifndef XYZEMPLOYEEIF_H
+#define XYZEMPLOYEEIF_H
+
+#include"XyzUtils.H"
+
 class XyzEmployeeIf {
 	// EmployeeIf class
 	// interface class: pure virtual functions, no attributes
@@ -22,20 +27,22 @@ class XyzEmployeeIf {
 	virtual string getBranchName()=0;
 	virtual void setCollegeName(string)=0;
 	virtual void setBranchName(string)=0;
-	virtual ostream & print(ostream &)=0; 
+	virtual ostream & print(ostream &)=0;
 	// need to find a way to implement opertor<< pure virtual function implementation
-	friend ostream& operator<<(ostream &, XyzEmployeeIf &);
-	friend ostream& operator<<(ostream &, XyzEmployeeIf *);
+	//friend ostream& operator<<(ostream &, XyzEmployeeIf &);
+	//friend ostream& operator<<(ostream &, XyzEmployeeIf *);
 };
 
-ostream & operator<<(ostream & out, XyzEmployeeIf & SParm) {
+inline ostream & operator<<(ostream & out, XyzEmployeeIf & SParm) {
 	//out << "operator<< of XyzEmployeeIf reference" << endl;
 	SParm.print(out);
 	return out;
 }
 
-ostream & operator<<(ostream & out, XyzEmployeeIf * SParm) {
+inline ostream & operator<<(ostream & out, XyzEmployeeIf * SParm) {
 	//out << "operator<< of XyzEmployeeIf pointer" << endl;
 	SParm->print(out);
 	return out;
 }
+
+#endif

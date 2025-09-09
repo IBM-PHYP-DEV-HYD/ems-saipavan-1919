@@ -1,0 +1,19 @@
+#ifndef XYZCONTRACTOREMP_H
+#define XYZCONTRACTOREMP_H
+
+#include"XyzEmployee.H"
+
+class XyzContractorEmployee:public XyzEmployee {
+
+	// XyzContractorEmployee class
+	private:
+		string mAgencyName;
+	public:
+		XyzContractorEmployee(unsigned int);
+		string getAgencyName();
+		void setAgencyName(string);
+		ostream & print(ostream &);
+		friend ostream& operator<<(ostream & , XyzContractorEmployee &);
+};
+
+#endif

@@ -1,26 +1,40 @@
 #include<iostream>
 using namespace std;
 
-#include"../../generic-deque-saipavan-1919-1/code/src/common.H"
-#include"../../generic-deque-saipavan-1919-1/code/src/node_class.H"
-#include"../../generic-deque-saipavan-1919-1/code/src/deque_class.H"
-#include"ExtDeque.H"
-#include"XyzUtils.H"
-#include"XyzEmployee.H"
+//#include"../../generic-deque-saipavan-1919-1/code/src/common.H"
+//#include"../../generic-deque-saipavan-1919-1/code/src/node_class.H"
+//#include"../../generic-deque-saipavan-1919-1/code/src/deque_class.H"
+//#include"ExtDeque.H"
+//#include"XyzUtils.H"
+//#include"XyzRandData.H"
+//#include"XyzEmployee.H"
+//#include"XyzFullTimeEmployee.H"
+//#include"XyzContractorEmployee.H"
+//#include"XyzInternEmployee.H"
+//#include"EDLL.H"
+//typedef XyzEmployeeIf* XyzEmpIfPtr;
 #include"XyzEmpManager.H"
 
 
 int main() {
 	cout << "Hello world..!" << endl;
-	//XyzEmployee a(1,1);
-	//cout << a;
+	XyzEmployee a(1,1);
+	cout << a;
+    XyzEmployeeIf * ptr = &a;
+	cout << ptr;
 	//XyzFullTimeEmployee x("a", "b", "c", "d");
-	//XyzFullTimeEmployee x(1);
-	//cout << x << endl;
-	//XyzContractorEmployee y(2);
-	//cout << y << endl;
-	//XyzInternEmployee z(3);
-	//cout << z << endl;
+	XyzFullTimeEmployee x(1);
+	cout << x << endl;
+	ptr = &x;
+	cout << x << endl;
+	XyzContractorEmployee y(2);
+	cout << y << endl;
+	ptr = &y;
+	cout << y << endl;
+	XyzInternEmployee z(3);
+	cout << z << endl;
+	ptr = &z;
+	cout << z << endl;
 	//XyzEmployee * ptr = &x;
 	//cout << ptr->getTotalLeaves() << endl;
 	//XyzEmployeeIf * ptr2 = &x;
@@ -30,7 +44,7 @@ int main() {
 	//cout << ptr2->getTotalLeaves() << endl;
 	//cout << (*ptr) << endl;
 	//Deque<int> d1;
-	/*ExtDeque<int> d2(3);
+	/*EDLL<int> d2(3);
 	d2.fwdTraverse();
 	int ind = 2;
 	int val = 1;
@@ -43,17 +57,18 @@ int main() {
 		cin >> ind;
 		d2.remNodeAtInd(ind);
 		d2.fwdTraverse();
-	}
+	}*/
 	//d2.sample(val);*/
 	//ExtDeque<int> a;
 	//cout << a << endl;
-	/*XyzFullTimeEmployee a(1);
-	XyzEmpIfPtr ptr1 = &a;
-	ExtDeque<XyzEmpIfPtr> *ptr = NULL;
-	ptr = new ExtDeque<XyzEmpIfPtr>;
-	cout << (*ptr1) << endl;
-	ptr->addNodeAtInd(0,ptr1);
-	ptr->fwdTraverse();*/
+	//XyzFullTimeEmployee a(1);
+	//XyzEmpIfPtr ptr1 = &a;
+	EDLL<XyzEmpIfPtr> *ptr1 = NULL;
+	ptr1 = new EDLL<XyzEmpIfPtr>;
+	//cout << (*ptr1) << endl;
+	ptr1->addNodeAtInd(0,&z);
+	ptr1->addNodeAtInd(0,&y);
+	ptr1->fwdTraverse();
 
 	//ExtDeque<XyzEmployeeIf> ed1;
 	//XyzEmployeeIf * If1 = new XyzFullTimeEmployee(1);
