@@ -1,4 +1,5 @@
 #include"XyzEmployee.H"
+#include"XyzEmpManager.H"
 
 XyzEmployee::XyzEmployee(unsigned int idParm, unsigned int typeParm) {
 	// XyzEmployee constructor
@@ -58,7 +59,7 @@ void XyzEmployee::setDoj(string DojParm) {
 ostream& operator<<(ostream & out, XyzEmployee & SParm) {
 	// << operator overloading function
 	//out << "Employee details:" << endl;
-	out << endl;
+	/*out << endl;
 	out << "Name\t\t|ID\t\t|Gender\t|Type\t\t|Status\t\t|DOB\t\t|";
 	unsigned int sEmpType = SParm.getEmpType();
 	unsigned int sStatus = SParm.getStatus();
@@ -88,7 +89,8 @@ ostream& operator<<(ostream & out, XyzEmployee & SParm) {
 		out << "INACTIVE" << "\t|";
 	else if(sStatus == RESIGNED)
 		out << "RESIGNED" << "\t|";
-	out << SParm.getDob() << "\t|";
+	out << SParm.getDob() << "\t|";*/
+	SParm.print(out);
 	return out;
 }
 // Below are virtual functions relate to XyzEmployee class
@@ -125,7 +127,80 @@ void XyzEmployee::setCollegeName(string collegeNameParm) {
 }
 ostream & XyzEmployee::print(ostream & out) {
 	//cout << "Print from XyzEmployee" << endl;
-	out << (*this);
+	//out << (*this);
+		// uses values from SubMenuTwoChoices enum
+	out << "print function of XyzEmployee" << endl;
+	out << "Name\t\t: " << mName << endl;
+	out << "ID\t\t: " << mId << endl;
+	if(mType == FULLTIMER)
+		out << "Type\t\t: " << "FULLTIMER" << endl;
+	else if(mType == CONTRACTOR)
+		out << "Type\t\t: " << "CONTRACTOR" << endl;
+	else if(mType == INTERN)
+		out << "Type\t\t: " << "INTERN" << endl;
+	if(mStatus == ACTIVE)
+		out << "Status\t\t: ACTIVE" << endl;
+	else if(mStatus == INACTIVE)
+		out << "Status\t\t: INACTIVE" << endl;
+	else if(mStatus == RESIGNED)
+		out << "Status\t\t: RESIGNED" << endl;
+	if(mGender == MALE)
+		out << "Gender\t\t: MALE" << endl;
+	else if(mGender == FEMALE)
+		out << "Gender\t\t: FEMALE" << endl;
+	out << "DOB\t\t: " << mDOB << endl;
+	out << "DOJ\t\t: " << mDOJ << endl;
 	return out;
 }
+
+void XyzEmployee::printHeader(ostream & out, unsigned int empDataParm) {
+		out << "\nName\t\t\t|ID\t\t|Gender\t\t|Type\t\t|Status\t\t|DOB\t\t|DOJ\t\t|";
+		if ((ALL_EMPS_INFO == empDataParm) || (EMP_GENDER_BASED_INFO/10 == empDataParm/10) || (EMP_STATUS_BASED_INFO/10 == empDataParm/10)) {
+			out << "Total Leaves\t|" << "Availed Leaves\t|" << "Agency Name\t|";
+			out << "College\t|" << "Branch\t|";
+		}
+		else if(FULLTIMER == mType)
+			out << "Total Leaves\t|" << "Availed Leaves\t|";
+		else if(CONTRACTOR == mType)
+			out << "Agency Name\t|";
+		else if(INTERN == mType)
+			out << "College\t|" << "Branch\t|";
+		out << endl;
+}
+
+ostream & XyzEmployee::print(ostream & out, unsigned int empDataParm) {
+	// uses values from SubMenuTwoChoices enum
+	if(ALL_EMPS_INFO == empDataParm);
+	else if(((EMP_TYPE_BASED_INFO/10 == empDataParm/10)&&(mType == empDataParm%10)));
+	else if(((EMP_GENDER_BASED_INFO/10 == empDataParm/10)&&(mGender == empDataParm%10)));
+	else if(((EMP_STATUS_BASED_INFO/10 == empDataParm/10)&&(mStatus == empDataParm%10)));
+	else
+		return out;
+	out << getName() << "\t\t|";
+	out << getId() << "\t\t|";
+	unsigned int sEmpGender = getGender();
+	if(sEmpGender == MALE)
+		out << "Male  " << "\t\t|";
+	else if(sEmpGender == FEMALE)
+		out << "Female" << "\t\t|";
+	unsigned int sEmpType = getEmpType();
+	if(sEmpType == FULLTIMER)
+		out << "Full-Timer" << "\t|";
+	else if(sEmpType == CONTRACTOR)
+		out << "Contractor" << "\t|";
+	else if(sEmpType == INTERN)
+		out << "Intern    " << "\t|";
+	unsigned int sStatus = getStatus();
+	if(sStatus == ACTIVE)
+		out << "ACTIVE  " << "\t|";
+	else if(sStatus == INACTIVE)
+		out << "INACTIVE" << "\t|";
+	else if(sStatus == RESIGNED)
+		out << "RESIGNED" << "\t|";
+	out << getDob() << "\t|";
+	out << getDoj() << "\t|";
+	//out << (*this);*/
+	return out;
+}
+
 // end of virtual functions

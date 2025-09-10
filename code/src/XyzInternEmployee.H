@@ -15,6 +15,7 @@ class XyzInternEmployee:public XyzEmployee {
 		string getBranchName();
 		void setBranchName(string);
 		ostream & print(ostream &);
+		ostream & print(ostream &, unsigned int);
 		friend ostream& operator<<(ostream & , XyzInternEmployee &);
 };
 

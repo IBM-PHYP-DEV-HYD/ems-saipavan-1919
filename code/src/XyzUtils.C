@@ -2,7 +2,7 @@
 
 static string first_names[2][NUM_NAMES] = {{"Hari", "Ram", "Josh"},{"Laxmi", "Vishnu", "vani"}};
 static string last_names[2][NUM_NAMES] = {{"Krishna", "Bala", "Hagelwood"},{"Devi", "priya", "kumari"}};
-static string AGENCY_NAMES[] = {"Avengers", "Justice League", "Marvel"};
+static string AGENCY_NAMES[] = {"Avengers", "Justice League", "Marvel DC"};
 static string COLLEGE_NAMES[] = {"IIT Delhi", "IIT Bombay", "IIT Hyderabad", "IIT Kanpur", "NIT Warangal", "NIT Tiruchi"};
 static string BRANCH_NAMES[] = {"ECE","CSE","CSIT"};
 
@@ -64,7 +64,7 @@ unsigned int fetchEmpIdVal(string empIdParm) {
 		}
 		//sIdVal += '\0';
 	}
-	cout << sIdVal << endl;
+	//cout << sIdVal << endl;
     return stoi(sIdVal);
 }
 
@@ -83,18 +83,19 @@ namespace RandEmpDataGen {
 	string getRandomEmpName(unsigned int GenderParm) {
 		// this function generates random name and returns it
 		// based on the gender of employee, the name will be picked from predefined lists
-		string sName = first_names[GenderParm][getRandomNumber(0,NUM_NAMES)];
+		string sName = first_names[GenderParm-1][getRandomNumber(0,NUM_NAMES)];
 		sName += " ";
-		sName += last_names[GenderParm][getRandomNumber(0,NUM_NAMES)];
+		sName += last_names[GenderParm-1][getRandomNumber(0,NUM_NAMES)];
+		cout << "Name : " << sName << endl;
 		return sName;
 	}
 
 	unsigned int getRandomEmpGender() {
-		return getRandomNumber(0,NUM_GENDERS);
+		return getRandomNumber(1,NUM_GENDERS+1);
 	}
 
 	unsigned int getRandomEmpType() {
-		return getRandomNumber(0,NUM_EMPTYPES);
+		return getRandomNumber(1,NUM_EMPTYPES+1);
 	}
 
 	string getRandomEmpId(unsigned int idParm, unsigned int empTypeParm) {
@@ -109,7 +110,7 @@ namespace RandEmpDataGen {
 	}
 
 	unsigned int getRandomEmpStatus() {
-		return getRandomNumber(0,NUM_EMPSTATUSES);
+		return getRandomNumber(1,NUM_EMPSTATUSES+1);
 	}
 
 	string getRandomEmpDob() {

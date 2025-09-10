@@ -13,6 +13,7 @@ class XyzContractorEmployee:public XyzEmployee {
 		string getAgencyName();
 		void setAgencyName(string);
 		ostream & print(ostream &);
+		ostream & print(ostream &, unsigned int);
 		friend ostream& operator<<(ostream & , XyzContractorEmployee &);
 };
 

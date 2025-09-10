@@ -27,19 +27,19 @@ enum SubMenuOneChoices {
 };
 
 enum SubMenuTwoChoices {
-    ALL_EMPS_INFO=1,
-    EMP_TYPE_BASED_INFO,
-    FULLTIMER_EMPS_INFO,
-    CONTRACTOR_EMPS_INFO,
-    INTERN_EMPS_INFO,
-    EMP_GENDER_BASED_INFO,
-    MALE_EMPS_INFO,
-    FEMALE_EMPS_INFO,
-    EMP_STATUS_BASED_INFO,
-    ACTIVE_EMPS_INFO,
-    INACTIVE_EMPS_INFO,
-    RESIGNED_EMPS_INFO,
-    EMP_ID_BASED_INFO,
+    ALL_EMPS_INFO=10,
+    EMP_TYPE_BASED_INFO=20,
+    FULLTIMER_EMPS_INFO=21,
+    CONTRACTOR_EMPS_INFO=22,
+    INTERN_EMPS_INFO=23,
+    EMP_GENDER_BASED_INFO=30,
+    MALE_EMPS_INFO=31,
+    FEMALE_EMPS_INFO=32,
+    EMP_STATUS_BASED_INFO=40,
+    ACTIVE_EMPS_INFO=41,
+    INACTIVE_EMPS_INFO=42,
+    RESIGNED_EMPS_INFO=43,
+    EMP_ID_BASED_INFO=50,
 };
 
 namespace XyzEmpManagerMenus {
@@ -67,9 +67,8 @@ class XyzEmployeeManager {
         void addFullTimeEmployee();
         void addContractorEmployee();
         void addInternEmployee();
-        void printEmpInfoBasedOnType(unsigned int);
-        void printEmpInfoBasedOnGender(unsigned int);
-        void printEmpInfoBasedOnStatus(unsigned int);
+        void removeEmp(unsigned int);
+        void printEmpInfo(unsigned int);
         void printEmpInfoBasedOnId(unsigned int);
         EDLL<XyzEmpIfPtr> * getActInactEmpDeque();
         EDLL<XyzEmpIfPtr> * getResignedEmpDeque();

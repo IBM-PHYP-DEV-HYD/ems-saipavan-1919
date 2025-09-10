@@ -8,6 +8,14 @@ using namespace std;
 #include"XyzRandData.H"
 //#include"../../generic-deque-saipavan-1919-1/code/src/common.H"
 
+#define NUM_NAMES 3
+#define NUM_GENDERS 2
+#define NUM_EMPTYPES 3
+#define NUM_EMPSTATUSES 3
+#define NUM_AGENCY_NAMES 3
+#define NUM_COLLEGES 6
+#define NUM_BRANCHES 3
+
 string * string_split(string, char, int *);
 unsigned int fetchEmpIdVal(string);
 unsigned int getNumOfEmps();

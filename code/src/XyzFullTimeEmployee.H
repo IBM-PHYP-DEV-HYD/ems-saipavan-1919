@@ -16,6 +16,7 @@ class XyzFullTimeEmployee:public XyzEmployee {
 		void setTotalLeaves(unsigned int);
 		void setAvailedLeaves(unsigned int);
 		ostream & print(ostream &);
+		ostream & print(ostream &, unsigned int);
 		friend ostream& operator<<(ostream & , XyzFullTimeEmployee &);
 };
 
