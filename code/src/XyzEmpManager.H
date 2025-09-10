@@ -42,6 +42,13 @@ enum SubMenuTwoChoices {
     EMP_ID_BASED_INFO=50,
 };
 
+enum SubMenuThreeChoices {
+    ADD_LEAVES_FULLTIMERS,
+    CONVERT_INTERN_FULLTIME,
+    SEARCH_EMP_ID,
+    SEARCH_EMP_NAME,
+};
+
 namespace XyzEmpManagerMenus {
     unsigned int chooseMainMenuChoice();
     unsigned int chooseSubMenuOneChoice();
@@ -70,6 +77,7 @@ class XyzEmployeeManager {
         void removeEmp(unsigned int);
         void printEmpInfo(unsigned int);
         void printEmpInfoBasedOnId(unsigned int);
+        XyzEmpIfPtr fetchEmpBasedOnId(unsigned int, unsigned int *);
         EDLL<XyzEmpIfPtr> * getActInactEmpDeque();
         EDLL<XyzEmpIfPtr> * getResignedEmpDeque();
 };

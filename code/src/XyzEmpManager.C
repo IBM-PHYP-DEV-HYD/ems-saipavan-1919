@@ -62,7 +62,17 @@ void XyzEmployeeManager::addInternEmployee() {
 void XyzEmployeeManager::removeEmp(unsigned int idParm) {
     // fetch emp idParm node index
     // use the EDDL rem node at index method to remove it
-    ;
+    unsigned int sEmpNodeIndex = 0;
+    XyzEmpIfPtr sEmpIf = fetchEmpBasedOnId(idParm, &sEmpNodeIndex);
+    if(sEmpNodeIndex != -1) {
+        sEmpIf->setStatus(RESIGNED);
+        mResignedEmpDeuque->pushBack(sEmpIf);
+        mActInactEmpDeuque->remNodeAtInd(sEmpNodeIndex);
+    }
+    else {
+        cout << "Unable to find the employee with EMP ID : " << idParm;
+        cout << " in active/inactive employee list" << endl;
+    }
 }
 
 EDLL<XyzEmpIfPtr> * XyzEmployeeManager::getActInactEmpDeque() {
@@ -100,36 +110,61 @@ void XyzEmployeeManager::printEmpInfo(unsigned int empTypeParm) {
     }
 }
 
-void XyzEmployeeManager::printEmpInfoBasedOnId(unsigned int empIdParm) {
-    // this function prints employee info based on their gender (male/female)
+XyzEmpIfPtr XyzEmployeeManager::fetchEmpBasedOnId(unsigned int empIdParm, unsigned int *indexParm=NULL) {
+    // if we pass unsigned int * indexParm as parameter then this function stores index of Node matching with
+    // empIdParm in it (only from mActInactEmpDeuque)
+    // this is useful when removing employee using ID
     Node<XyzEmpIfPtr> * sEmpNode = NULL;
     XyzEmpIfPtr sEmpIf = NULL;
     sEmpNode = mActInactEmpDeuque->getHeadNode();
     sEmpIf = sEmpNode->getNodeData();
+    unsigned int sEmpNodeIndex = 0;
     while(sEmpNode) {
         if(fetchEmpIdVal(sEmpIf->getId()) == empIdParm) {
-            cout << "Printing Employee info" << endl;
+            //cout << "Printing Employee info" << endl;
             //cout << sEmpIf << endl;
-            sEmpIf->print(cout);
-            return;
+            //sEmpIf->print(cout);
+            if(empIdParm)
+                 *indexParm = sEmpNodeIndex;
+            return sEmpIf;
         }
         //sEmpIf->print(cout,empTypeParm);
         sEmpNode = sEmpNode->getNextNode();
+        sEmpNodeIndex++;
         if(sEmpNode)
             sEmpIf = sEmpNode->getNodeData();
     }
+    if(empIdParm)
+        *indexParm = -1;
     sEmpNode = mResignedEmpDeuque->getHeadNode();
     sEmpIf = sEmpNode->getNodeData();
     while(sEmpNode) {
         if(fetchEmpIdVal(sEmpIf->getId()) == empIdParm) {
-            sEmpIf->print(cout);
+            //sEmpIf->print(cout);
             //cout << sEmpIf << endl;
-            return;
+            return sEmpIf;
         }
         sEmpNode = sEmpNode->getNextNode();
         if(sEmpNode)
             sEmpIf = sEmpNode->getNodeData();
     }
+    return NULL;
+}
+
+void XyzEmployeeManager::printEmpInfoBasedOnId(unsigned int empIdParm) {
+    // this function prints employee info based on their gender (male/female)
+    XyzEmpIfPtr sEmpIf = fetchEmpBasedOnId(empIdParm);
+    if(sEmpIf != NULL)
+    {
+        if(RESIGNED == sEmpIf->getStatus()) {
+            cout << "Employee is already removed and is in RESIGNED employee list" << endl;
+            return;
+        }
+    }
+    else {
+        cout << "Could not find Employee with ID : " << empIdParm << endl;
+    }
+    return;
 }
 
 
@@ -172,50 +207,12 @@ void XyzEmployeeManager::processEmployees() {
                 cin >> sEmpID;
                 printEmpInfoBasedOnId(sEmpID);
             }
-            /*switch(sSubMenuTwoChoice) {
-                case ALL_EMPS_INFO:
-                    cout << "All employee details : " << endl;
-                    mActInactEmpDeuque->fwdTraverse();
-                    mResignedEmpDeuque->fwdTraverse();
-                    break;
-                case FULLTIMER_EMPS_INFO:
-                    cout << "Fulltime Employee details : " << endl;
-                    printEmpInfoBasedOnType(FULLTIMER_EMPS_INFO);
-                    //printEmpInfoBasedOnType(FULLTIMER);
-                    break;
-                case CONTRACTOR_EMPS_INFO:
-                    cout << "Contractors Employee details : " << endl;
-                    printEmpInfoBasedOnType(CONTRACTOR);
-                    break;
-                case INTERN_EMPS_INFO:
-                    cout << "Interns Employee details : " << endl;
-                    printEmpInfoBasedOnType(INTERN);
-                    break;
-                case MALE_EMPS_INFO:
-                    cout << "Male Employee details : " << endl;
-                    printEmpInfoBasedOnGender(MALE);
-                    break;
-                case FEMALE_EMPS_INFO:
-                    cout << "Female Employee details : " << endl;
-                    printEmpInfoBasedOnGender(FEMALE);
-                    break;
-                case ACTIVE_EMPS_INFO:
-                    cout << "Active Employee details : " << endl;
-                    printEmpInfoBasedOnStatus(ACTIVE);
-                    break;
-                case INACTIVE_EMPS_INFO:
-                    cout << "Active Employee details : " << endl;
-                    printEmpInfoBasedOnStatus(INACTIVE);
-                    break;
-                case RESIGNED_EMPS_INFO:
-                    cout << "Active Employee details : " << endl;
-                    printEmpInfoBasedOnStatus(RESIGNED);
-                    break;
-                case EMP_ID_BASED_INFO:
-                    cout << "Enter employee ID : ";
-                    cin >> sEmpID;
-                    printEmpInfoBasedOnId(sEmpID);
-            }*/
+        }
+        else if(sMainMenuChoice == OTHERS) {
+            sSubMenuThreeChoices = XyzEmpManagerMenus::chooseSubMenuThreeChoice();
+            if(sSubMenuThreeChoices == ADD_LEAVES_FULLTIMERS) {
+                ;
+            }
         }
     }
 }
@@ -306,5 +303,16 @@ namespace XyzEmpManagerMenus {
                 return EMP_ID_BASED_INFO;
         }
         return 0;
+    }
+
+    unsigned int chooseSubMenuThreeChoice() {
+        unsigned int sChoice;
+        cout << "Choose from Sub Menu Three options :" << endl;
+        cout << "1) Add n number of leaves to all Full-Time employees." << endl;
+        cout << "2) Convert an Intern to Full-Time employee" << endl;
+        cout << "3) Search an Employee ID" << endl;
+        cout << "4) Search an Employee by Name" << endl;
+        cin >> sChoice;
+        return sChoice;
     }
 }
