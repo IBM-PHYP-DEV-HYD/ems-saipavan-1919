@@ -71,38 +71,6 @@ void XyzEmployee::setDoj(string DojParm) {
 
 ostream& operator<<(ostream & out, XyzEmployee & SParm) {
 	// << operator overloading function
-	//out << "Employee details:" << endl;
-	/*out << endl;
-	out << "Name\t\t|ID\t\t|Gender\t|Type\t\t|Status\t\t|DOB\t\t|";
-	unsigned int sEmpType = SParm.getEmpType();
-	unsigned int sStatus = SParm.getStatus();
-	if(FULLTIMER == sEmpType && RESIGNED != sStatus)
-		out << "Total Leaves\t|" << "Availed Leaves\t|";
-	else if(CONTRACTOR == sEmpType && RESIGNED != sStatus)
-		out << "Agency Name\t|";
-	else if(INTERN == sEmpType && RESIGNED != sStatus)
-		out << "College\t|" << "Branch\t|";
-	out << endl;
-	out << SParm.getName() << "\t|";
-	out << SParm.getId() << "\t\t|";
-	unsigned int sEmpGender = SParm.getGender();
-	if(sEmpGender == MALE)
-		out << "Male  " << "\t|";
-	else if(sEmpGender == FEMALE)
-		out << "Female" << "\t|";
-	if(sEmpType == FULLTIMER)
-		out << "Full-Timer" << "\t|";
-	else if(sEmpType == CONTRACTOR)
-		out << "Contractor" << "\t|";
-	else if(sEmpType == INTERN)
-		out << "Intern    " << "\t|";
-	if(sStatus == ACTIVE)
-		out << "ACTIVE  " << "\t|";
-	else if(sStatus == INACTIVE)
-		out << "INACTIVE" << "\t|";
-	else if(sStatus == RESIGNED)
-		out << "RESIGNED" << "\t|";
-	out << SParm.getDob() << "\t|";*/
 	SParm.print(out);
 	return out;
 }
@@ -172,11 +140,11 @@ void XyzEmployee::printHeader(ostream & out, unsigned int empDataParm) {
 			out << "Total Leaves\t|" << "Availed Leaves\t|" << "Agency Name\t|";
 			out << "College\t|" << "Branch\t|";
 		}
-		else if(FULLTIMER == mType)
+		else if(FULLTIMER_EMPS_INFO == empDataParm)
 			out << "Total Leaves\t|" << "Availed Leaves\t|";
-		else if(CONTRACTOR == mType)
+		else if(CONTRACTOR_EMPS_INFO == empDataParm)
 			out << "Agency Name\t|";
-		else if(INTERN == mType)
+		else if(INTERN_EMPS_INFO == empDataParm)
 			out << "College\t|" << "Branch\t|";
 		out << endl;
 }

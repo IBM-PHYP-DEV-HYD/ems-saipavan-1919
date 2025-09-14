@@ -49,7 +49,7 @@ namespace XyzEmpManagerMenus {
         cout << "Choose options : ";
         cin >> sChoice;
         if(checkFixCinErr())
-		    return chooseSubMenuOneChoice();
+		    return chooseSubMenuTwoChoice();
         switch(sChoice) {
             case ALL_EMPS_INFO/10:
                 return ALL_EMPS_INFO;
@@ -61,7 +61,7 @@ namespace XyzEmpManagerMenus {
                 cout << "Choose Employee Type : ";
                 cin >> sChoice;
                 if(checkFixCinErr())
-		            return chooseSubMenuOneChoice();
+		            return chooseSubMenuTwoChoice();
                 return sChoice+EMP_TYPE_BASED_INFO;
             case EMP_GENDER_BASED_INFO/10:
             //case 3:
@@ -70,7 +70,7 @@ namespace XyzEmpManagerMenus {
                 cout << "Choose Employee gender : ";
                 cin >> sChoice;
                 if(checkFixCinErr())
-		            return chooseSubMenuOneChoice();
+		            return chooseSubMenuTwoChoice();
                 return sChoice+EMP_GENDER_BASED_INFO;
             case EMP_STATUS_BASED_INFO/10:
                 cout << "1) Active Emps Info" << endl;
@@ -79,7 +79,7 @@ namespace XyzEmpManagerMenus {
                 cout << "Choose employee status : ";
                 cin >> sChoice;
                 if(checkFixCinErr())
-		            return chooseSubMenuOneChoice();
+		            return chooseSubMenuTwoChoice();
                 return sChoice+EMP_STATUS_BASED_INFO;
             case EMP_ID_BASED_INFO/10:
                 return EMP_ID_BASED_INFO;
@@ -95,6 +95,8 @@ namespace XyzEmpManagerMenus {
         cout << "3) Search an Employee ID" << endl;
         cout << "4) Search an Employee by Name" << endl;
         cin >> sChoice;
+        if(checkFixCinErr())
+		    return chooseSubMenuThreeChoices();
         return sChoice;
     }
 }
@@ -226,7 +228,6 @@ XyzEmpIfPtr XyzEmployeeManager::fetchEmp(unsigned int empIdParm, unsigned int *i
     sEmpIf = sEmpNode->getNodeData();
     unsigned int sEmpNodeIndex = 0;
     while(sEmpNode) {
-
         if(fetchEmpIdVal(sEmpIf->getId()) == empIdParm) {
             //cout << "Printing Employee info" << endl;
             //cout << sEmpIf << endl;
@@ -379,11 +380,11 @@ void XyzEmployeeManager::processEmployees() {
     unsigned int sEmpID;
     unsigned int sEmpLeaves;
     string sEmpName;
-    XyzEmpIfPtr sEmpIf = NULL;
-    unsigned int * sIndex = NULL;
+    //XyzEmpIfPtr sEmpIf = NULL;
+    //unsigned int * sIndex = NULL;
     while(1) {
         sMainMenuChoice = XyzEmpManagerMenus::chooseMainMenuChoice();
-        cout << sMainMenuChoice << endl;
+        //cout << sMainMenuChoice << endl;
         if(sMainMenuChoice == ADD_EMP) {
             sSubMenuOneChoice = XyzEmpManagerMenus::chooseSubMenuOneChoice();
             switch (sSubMenuOneChoice)
@@ -404,7 +405,8 @@ void XyzEmployeeManager::processEmployees() {
         else if(sMainMenuChoice == REM_EMP) {
             cout << "Enter employee ID : ";
             cin >> sEmpID;
-            removeEmp(sEmpID);
+            if(!checkFixCinErr())
+                removeEmp(sEmpID);
         }
         else if(sMainMenuChoice == EMP_DETAILS) {
             sSubMenuTwoChoice = XyzEmpManagerMenus::chooseSubMenuTwoChoice();
@@ -413,8 +415,8 @@ void XyzEmployeeManager::processEmployees() {
             else {
                 cout << "Enter employee ID : ";
                 cin >> sEmpID;
-                //checkFixCinErr()
-                printEmpInfo(sEmpID);
+                if(!checkFixCinErr())
+                    printEmpInfo(sEmpID);
             }
         }
         else if(sMainMenuChoice == OTHERS) {
@@ -422,27 +424,34 @@ void XyzEmployeeManager::processEmployees() {
             if(sSubMenuThreeChoice == ADD_LEAVES_FULLTIMERS) {
                 cout << "Enter new number of leaves for fulltimers : ";
                 cin >> sEmpLeaves;
-                if(EMP_TOTAL_LEAVES < sEmpLeaves)
-                    addLeavesForFullTimers(sEmpLeaves);
-                else
-                    cout << "New leaves should be greater than " << EMP_TOTAL_LEAVES << endl;
+                if(!checkFixCinErr()) {
+                    if(EMP_TOTAL_LEAVES < sEmpLeaves)
+                        addLeavesForFullTimers(sEmpLeaves);
+                    else
+                        cout << "New leaves should be greater than " << EMP_TOTAL_LEAVES << endl;
+                }
             }
             else if(sSubMenuThreeChoice == CONVERT_INTERN_FULLTIME) {
                 printEmpsInfo(ALL_EMPS_INFO);
                 cout << "Choose Intern employee ID : ";
                 cin >> sEmpID;
-                convertInternToFulltimer(sEmpID);
+                if(!checkFixCinErr())
+                    convertInternToFulltimer(sEmpID);
             }
             else if(sSubMenuThreeChoice == SEARCH_EMP_ID) {
                 cout << "Enter Employee ID : ";
                 cin >> sEmpID;
-                printEmpInfo(sEmpID);
+                if(!checkFixCinErr())
+                    printEmpInfo(sEmpID);
             }
             else if(sSubMenuThreeChoice == SEARCH_EMP_NAME) {
                 cout << "Enter Employee Name : ";
-                cin >> sEmpName;
-                //getline(cin,sEmpName);
-                printEmpInfo(sEmpName);
+                //cin >> sEmpName;
+                cin.ignore();
+                getline(cin,sEmpName);
+                cout << sEmpName << endl;
+                if(!checkFixCinErr())
+                    printEmpInfo(sEmpName);
             }
         }
     }
