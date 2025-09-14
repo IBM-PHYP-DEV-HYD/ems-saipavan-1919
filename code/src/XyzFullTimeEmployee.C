@@ -1,15 +1,18 @@
 #include"XyzFullTimeEmployee.H"
 #include"XyzEmpManager.H"
 
-//XyzFullTimeEmployee::XyzFullTimeEmployee(string nameParm, string idParm, string dobParm, string genderParm):XyzEmployee(nameParm, idParm, dobParm, genderParm) {
+
 XyzFullTimeEmployee::XyzFullTimeEmployee(unsigned int idParm):XyzEmployee(idParm, FULLTIMER) {
+	// XyzFullTimeEmployee constructor
+	// generates and assigns random number of leaves to employee
 	cout << "I'm XyzFullTimeEmployee constructor" << endl;
-	//mTotalLeaves = 22; // EMP_TOTAL_LEAVES macro
 	mTotalLeaves = EMP_TOTAL_LEAVES;
 	mAvailedLeaves = RandEmpDataGen::getRanomEmpAvailedLeaves(mTotalLeaves);
 }
 
 XyzFullTimeEmployee::XyzFullTimeEmployee(XyzEmployeeIf * empPtrParm):XyzEmployee(empPtrParm) {
+	// copy constructor
+	// useful when we want to convert one type of employee to other (Intern -> FullTimer)
 	cout << "I'm Fulltime employee copy constructor" << endl;
 	this->setEmpType(FULLTIMER);
 	mTotalLeaves = EMP_TOTAL_LEAVES;
@@ -40,8 +43,7 @@ ostream & operator<<(ostream & out, XyzFullTimeEmployee & SParm) {
 }
 
 ostream & XyzFullTimeEmployee::print(ostream & out) {
-	//cout << "Print from XyzFullTimeEmployee" << endl;
-	//out << (*this);
+	// prints FullTimeEmployee details in key: Value pair format
 	XyzEmployee::print(out);
 	if(RESIGNED == getStatus())
 		return out;
@@ -51,7 +53,9 @@ ostream & XyzFullTimeEmployee::print(ostream & out) {
 }
 
 ostream & XyzFullTimeEmployee::print(ostream & out, unsigned int empDataParm) {
-	//cout << "Print from XyzFullTimeEmployee" << endl;
+	// prints common employee details + fulltimer specific details
+	// is used during the summary of employees (prints in table format).
+	// also prints empty spaces where required (at other type employee details)
 	// uses values from SubMenuTwoChoices enum
 	if(((FULLTIMER_EMPS_INFO == empDataParm) || (ALL_EMPS_INFO == empDataParm)))
 		XyzEmployee::print(out, empDataParm);

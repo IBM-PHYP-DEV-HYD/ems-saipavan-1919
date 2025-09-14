@@ -19,7 +19,7 @@ int checkFixCinErr() {
 }
 
 string * string_split(string strParm, char delimiterParm, int * noOfOccurancePtrParm=NULL) {
-	// this function splits a given string with the delimiterParm and returns list of strings
+	// splits a given string with the delimiterParm and returns list of strings
 	unsigned int sOccurance = 0;
 	for(int i=0;strParm[i]!='\0';i++) {
 		if(strParm[i] == delimiterParm)
@@ -46,7 +46,7 @@ string * string_split(string strParm, char delimiterParm, int * noOfOccurancePtr
 
 
 unsigned int getNumOfEmps() {
-	// this function asks user input for number of employees and returns its value
+	// asks user input for number of employees and returns its value
 	unsigned int sNumEmps;
 	cout << "Enter number of Employees : ";
 	cin >> sNumEmps;
@@ -56,16 +56,13 @@ unsigned int getNumOfEmps() {
 }
 
 unsigned int fetchEmpIdVal(string empIdParm) {
-	// this function fetches only ID value from the employee id string
-	//cout << "fetchEmpIdVal" << endl;
+	// fetches only ID value from the employee id string
 	string sIdVal;
 	for(int i=0;empIdParm[i]!='\0';i++) {
 		if(empIdParm[i]>'0' && empIdParm[i]<='9') {
 			sIdVal += empIdParm[i];
 		}
-		//sIdVal += '\0';
 	}
-	//cout << sIdVal << endl;
     return stoi(sIdVal);
 }
 
@@ -82,7 +79,7 @@ namespace RandEmpDataGen {
 	}
 
 	string getRandomEmpName(unsigned int GenderParm) {
-		// this function generates random name and returns it
+		// generates random name and returns it
 		// based on the gender of employee, the name will be picked from predefined lists
 		string sName = first_names[GenderParm-1][getRandomNumber(0,NUM_NAMES)];
 		sName += " ";
@@ -92,14 +89,18 @@ namespace RandEmpDataGen {
 	}
 
 	unsigned int getRandomEmpGender() {
+		// generates random gender (male/female)
 		return getRandomNumber(1,NUM_GENDERS+1);
 	}
 
 	unsigned int getRandomEmpType() {
+		// generates random employee type (fulltimer/contractor/intern)
 		return getRandomNumber(1,NUM_EMPTYPES+1);
 	}
 
 	string getRandomEmpId(unsigned int idParm, unsigned int empTypeParm) {
+		// generates random employee ID 
+		// format : Xyz + idVal(0-9999) + EmpTypeSpecifier(F/C/I)
 		string sType = "\0";
 		if(empTypeParm == FULLTIMER)
 			sType = "F";
@@ -115,7 +116,7 @@ namespace RandEmpDataGen {
 	}
 
 	string getRandomEmpDob() {
-		// this function generates a random DOB for employee
+		// generates a random DOB for employee
 		// generation will depends on few parameters like age of employee should be more than 21 years
 		unsigned int sEmpDobEndYear = EMP_CURYEAR - 21;
 		unsigned int sEmpDobStartYear = sEmpDobEndYear - 39; // considering 60 years as retirement age
@@ -130,7 +131,6 @@ namespace RandEmpDataGen {
 		string * dobList = string_split(DobParm, '/');
 		if(!dobList)
 			return "";
-		//cout << dobList[0] + " " + dobList[1] + " " + dobList[2];
 		unsigned int sYear = stoi(dobList[2]);
 		unsigned int sMonth = stoi(dobList[1]);
 		unsigned int sDate = stoi(dobList[0]);
@@ -139,23 +139,26 @@ namespace RandEmpDataGen {
 		sYear = getRandomNumber(sYear, EMP_CURYEAR-21);
 		sMonth = getRandomNumber(1,13);
 		sDate = getRandomNumber(1,28);
-		//cout << to_string(sDate) + "/" + to_string(sMonth) + "/" + to_string(sYear) << endl;
 		return to_string(sDate) + "/" + to_string(sMonth) + "/" + to_string(sYear);
 	}
 
 	unsigned int getRanomEmpAvailedLeaves(unsigned int totalLeavesParm) {
+		// generates random no.of availed b/w 0 and total leaves
 		return getRandomNumber(0, totalLeavesParm);
 	}
 
 	string getRanomEmpAgency() {
+		// generates random agency from a list of agency names for contractors
 		return AGENCY_NAMES[getRandomNumber(0,NUM_AGENCY_NAMES)];
 	}
 
 	string getRandomEmpCollege() {
+		// generates random college name for Interns from a list of college names
 		return COLLEGE_NAMES[getRandomNumber(0, NUM_COLLEGES)];
 	}
 
 	string getRandomEmpBranch() {
+		// generates random branch name for Interns from a list of branc names
 		return BRANCH_NAMES[getRandomNumber(0, NUM_BRANCHES)];
 	}
 }// end of namespace

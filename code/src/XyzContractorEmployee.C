@@ -2,6 +2,8 @@
 #include"XyzEmpManager.H"
 
 XyzContractorEmployee::XyzContractorEmployee(unsigned int idParm):XyzEmployee(idParm, CONTRACTOR) {
+	// XyzContractorEmployee constructor : 
+	// generates and assigns random Agency name for contractor employee
 	cout << "I'm XyzContractorEmployee constructor" << endl;
 	mAgencyName = RandEmpDataGen::getRanomEmpAgency();
 }
@@ -22,7 +24,7 @@ ostream & operator<<(ostream & out, XyzContractorEmployee & SParm) {
 }
 
 ostream & XyzContractorEmployee::print(ostream & out) {
-	//cout << "Print from XyzContractorEmployee" << endl;
+	// this function prints the comomon employee details +  contractor employee specific details
 	XyzEmployee::print(out);
 	if(RESIGNED == getStatus())
 		return out;
@@ -32,7 +34,9 @@ ostream & XyzContractorEmployee::print(ostream & out) {
 
 
 ostream & XyzContractorEmployee::print(ostream & out, unsigned int empDataParm) {
-	//cout << "Print from XyzFullTimeEmployee" << endl;
+	// this function prints common employee details + contractor specific details
+	// this function is used during the summary of employees.
+	// also prints empty spaces where required (at other type employee details)
 	// uses values from SubMenuTwoChoices enum
 	if(((CONTRACTOR_EMPS_INFO == empDataParm) || (ALL_EMPS_INFO == empDataParm)))
 		XyzEmployee::print(out, empDataParm);
@@ -42,6 +46,8 @@ ostream & XyzContractorEmployee::print(ostream & out, unsigned int empDataParm) 
 		XyzEmployee::print(out, empDataParm);
 	else
 		return out;
+	// here print data at a position based on type of employee 
+	// at other places need to left it as empty
 	if(ALL_EMPS_INFO == empDataParm || EMP_GENDER_BASED_INFO/10 == empDataParm/10 || EMP_STATUS_BASED_INFO/10 == empDataParm/10) {
 		out << "-\t\t|"; // Total Leaves
 		out << "-\t\t|"; // Availed Leaves
@@ -52,7 +58,5 @@ ostream & XyzContractorEmployee::print(ostream & out, unsigned int empDataParm) 
 		out << "-\t|"; // Branch
 	}
 	out << "\n";
-	// here print data at a position based on type of employee 
-	// at other places need to left it as empty
 	return out;
 }

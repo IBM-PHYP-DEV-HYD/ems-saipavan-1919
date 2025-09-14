@@ -30,9 +30,6 @@ class XyzEmployeeIf {
 	virtual ostream & print(ostream &)=0;
 	virtual ostream & print(ostream &, unsigned int)=0;
 	virtual void printHeader(ostream &, unsigned int)=0;
-	// need to find a way to implement opertor<< pure virtual function implementation
-	//friend ostream& operator<<(ostream &, XyzEmployeeIf &);
-	//friend ostream& operator<<(ostream &, XyzEmployeeIf *);
 };
 
 inline ostream & operator<<(ostream & out, XyzEmployeeIf & SParm) {

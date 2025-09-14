@@ -4,8 +4,6 @@
 #include"XyzEmployee.H"
 
 class XyzContractorEmployee:public XyzEmployee {
-
-	// XyzContractorEmployee class
 	private:
 		string mAgencyName;
 	public:

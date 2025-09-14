@@ -2,6 +2,8 @@
 #include"XyzEmpManager.H"
 
 XyzInternEmployee::XyzInternEmployee(unsigned int idParm):XyzEmployee(idParm, INTERN) {
+	// XyzInternEmployee constructor
+	// generates and assigns random college and branch deatails to Interns
 	cout << "I'm XyzInternEmployee constructor" << endl;
 	mCollegeName = RandEmpDataGen::getRandomEmpCollege();
 	mBranchName = RandEmpDataGen::getRandomEmpBranch();
@@ -31,7 +33,7 @@ ostream & operator<<(ostream & out, XyzInternEmployee & SParm) {
 }
 
 ostream & XyzInternEmployee::print(ostream & out) {
-	//cout << "Print from XyzInternEmployee" << endl;
+	// prints Intern Employee details in Key: Valye Pair format
 	XyzEmployee::print(out);
 	if(RESIGNED == getStatus())
 		return out;
@@ -41,8 +43,9 @@ ostream & XyzInternEmployee::print(ostream & out) {
 }
 
 ostream & XyzInternEmployee::print(ostream & out,unsigned int empDataParm) {
-	//cout << "Print from XyzInternEmployee" << endl;
-		//cout << "Print from XyzFullTimeEmployee" << endl;
+	// prints common employee details + Intern specific details
+	// is used during the summary of employees (prints in table format).
+	// also prints empty spaces where required (at other type employee details)
 	// uses values from SubMenuTwoChoices enum
 	if(((INTERN_EMPS_INFO == empDataParm) || (ALL_EMPS_INFO == empDataParm)))
 		XyzEmployee::print(out, empDataParm);

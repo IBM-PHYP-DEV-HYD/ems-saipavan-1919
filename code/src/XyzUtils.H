@@ -6,7 +6,6 @@ using namespace std;
 
 #include<random>
 #include"XyzRandData.H"
-//#include"../../generic-deque-saipavan-1919-1/code/src/common.H"
 
 #define NUM_NAMES 3
 #define NUM_GENDERS 2
@@ -22,6 +21,7 @@ unsigned int getNumOfEmps();
 int checkFixCinErr();
 
 namespace RandEmpDataGen {
+	// namespace contains methods to generate random data
 	int getRandomNumber(int startNumParm, int endNumParm);
 	string getRandomEmpName(unsigned int GenderParm);
 	unsigned int getRandomEmpGender();

@@ -1,11 +1,6 @@
 #ifndef XYZEMPLOYEEMGR_H
 #define XYZEMPLOYEEMGR_H
 
-//#include"XyzUtils.H"
-
-//#include"XyzRandData.H"
-//#include"XyzEmployeeIF.H"
-//#include"XyzEmployee.H"
 #include"XyzFullTimeEmployee.H"
 #include"XyzContractorEmployee.H"
 #include"XyzInternEmployee.H"
@@ -60,7 +55,6 @@ namespace XyzEmpManagerMenus {
 
 
 class XyzEmployeeManager {
-    // XyzEmployeeManager class
     // maintains and managers XyzEmployees
     private:
         //EDLL<XyzEmployeeIf *> * mActInactiEmpDeuque;

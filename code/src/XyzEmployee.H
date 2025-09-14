@@ -2,11 +2,9 @@
 #define XYZEMPLOYEE_H
 
 #include"XyzEmployeeIF.H"
-//#include"XyzUtils.H"
 
 
 class XyzEmployee: public XyzEmployeeIf {
-	// XyzEmployee class
 	// Abstract class : Employee attributes, methods & virtual methods of Xyz<type>Employee
 	private:
 		string mName;	// fixed

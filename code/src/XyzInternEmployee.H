@@ -4,7 +4,6 @@
 #include"XyzEmployee.H"
 
 class XyzInternEmployee:public XyzEmployee {
-	// XyzInterneEmployee class
 	private:
 		string mCollegeName;
 		string mBranchName;

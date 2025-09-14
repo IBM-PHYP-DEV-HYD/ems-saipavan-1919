@@ -17,6 +17,7 @@ XyzEmployee::XyzEmployee(unsigned int idParm, unsigned int typeParm) {
 
 XyzEmployee::XyzEmployee(XyzEmployeeIf * empIfPtrParm) {
 	// copy constructor
+	// useful when converting one type of employee to other (Intern -> FullTimer)
 	cout << "I'm XyzEmployee copy constructor" << endl;
 	mType = empIfPtrParm->getEmpType();
 	mId = empIfPtrParm->getId();
@@ -107,9 +108,9 @@ void XyzEmployee::setCollegeName(string collegeNameParm) {
 	;
 }
 ostream & XyzEmployee::print(ostream & out) {
-	//cout << "Print from XyzEmployee" << endl;
-	//out << (*this);
-		// uses values from SubMenuTwoChoices enum
+	// prints Common Employee details in Key: Value Format
+	// called by Xyz<FUlltime/Contractor/Intern>Employee objects using statis_cast
+	// uses values from SubMenuTwoChoices enum
 	out << "print function of XyzEmployee" << endl;
 	out << "Name\t\t: " << mName << endl;
 	out << "ID\t\t: " << mId << endl;
@@ -135,21 +136,23 @@ ostream & XyzEmployee::print(ostream & out) {
 }
 
 void XyzEmployee::printHeader(ostream & out, unsigned int empDataParm) {
-		out << "\nName\t\t\t|ID\t\t|Gender\t\t|Type\t\t|Status\t\t|DOB\t\t|DOJ\t\t|";
-		if ((ALL_EMPS_INFO == empDataParm) || (EMP_GENDER_BASED_INFO/10 == empDataParm/10) || (EMP_STATUS_BASED_INFO/10 == empDataParm/10)) {
-			out << "Total Leaves\t|" << "Availed Leaves\t|" << "Agency Name\t|";
-			out << "College\t|" << "Branch\t|";
-		}
-		else if(FULLTIMER_EMPS_INFO == empDataParm)
-			out << "Total Leaves\t|" << "Availed Leaves\t|";
-		else if(CONTRACTOR_EMPS_INFO == empDataParm)
-			out << "Agency Name\t|";
-		else if(INTERN_EMPS_INFO == empDataParm)
-			out << "College\t|" << "Branch\t|";
-		out << endl;
+	// prints Header while printing Employee summary
+	out << "\nName\t\t\t|ID\t\t|Gender\t\t|Type\t\t|Status\t\t|DOB\t\t|DOJ\t\t|";
+	if ((ALL_EMPS_INFO == empDataParm) || (EMP_GENDER_BASED_INFO/10 == empDataParm/10) || (EMP_STATUS_BASED_INFO/10 == empDataParm/10)) {
+		out << "Total Leaves\t|" << "Availed Leaves\t|" << "Agency Name\t|";
+		out << "College\t|" << "Branch\t|";
+	}
+	else if(FULLTIMER_EMPS_INFO == empDataParm)
+		out << "Total Leaves\t|" << "Availed Leaves\t|";
+	else if(CONTRACTOR_EMPS_INFO == empDataParm)
+		out << "Agency Name\t|";
+	else if(INTERN_EMPS_INFO == empDataParm)
+		out << "College\t|" << "Branch\t|";
+	out << endl;
 }
 
 ostream & XyzEmployee::print(ostream & out, unsigned int empDataParm) {
+	// prints common employee details in table format
 	// uses values from SubMenuTwoChoices enum
 	if(ALL_EMPS_INFO == empDataParm);
 	else if(((EMP_TYPE_BASED_INFO/10 == empDataParm/10)&&(mType == empDataParm%10)));

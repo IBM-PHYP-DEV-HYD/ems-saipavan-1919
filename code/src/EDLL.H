@@ -4,7 +4,6 @@
 #include<iostream>
 using namespace std;
 
-//#include"../../generic-deque-saipavan-1919-1/code/src/common.H"
 int checkFixCinErr();
 #include"../../generic-deque-saipavan-1919-1/code/src/node_class.H"
 #include"../../generic-deque-saipavan-1919-1/code/src/deque_class.H"
@@ -19,7 +18,6 @@ class EDLL: public Deque<type> {
 		~EDLL();
 		void addNodeAtInd(int, type);
 		void remNodeAtInd(int);
-		//friend ostream & operator<<(ostream &, ExtDeque<type> &);
 };
 
 template <class type>
@@ -43,7 +41,7 @@ EDLL<type>:: ~EDLL() {
 
 template <class type>
 void EDLL<type>::addNodeAtInd(int indexParm, type DataParm) {
-	// this function adds a node in deque at a given index.
+	// adds a node in deque at a given index.
 	cout << "Adding node at index pos : " << indexParm << endl;
 	if(indexParm > this->getDequeSize()) {
 		cout << "Index is out of range can't add node" << endl;
@@ -67,13 +65,11 @@ void EDLL<type>::addNodeAtInd(int indexParm, type DataParm) {
 		sNextNode->setPrevNode(sNewNode);
 		this->pIncrDequeSize();
 	}
-	//sNodePtr = this->operator[](indexParm);
-	//std::cout << sNodePtr << endl;
 }
 
 template <class type>
 void EDLL<type>::remNodeAtInd(int indexParm) {
-	// this function removes a node in deque at a given index.
+	// removes a node in deque at a given index.
 	cout << "Removing node at index pos : " << indexParm << endl;
 	if(indexParm > this->getDequeSize()-1) {
 		cout << "Index is out of range can't remove node" << endl;

@@ -4,12 +4,10 @@
 #include"XyzEmployee.H"
 
 class XyzFullTimeEmployee:public XyzEmployee {
-	// XyzFullTimeEmployee class
 	private:
 		unsigned int mTotalLeaves;
 		unsigned int mAvailedLeaves;
 	public:
-		//XyzFullTimeEmployee(string, string, string, string);
 		XyzFullTimeEmployee(unsigned int);
 		XyzFullTimeEmployee(XyzEmployeeIf *);
 		unsigned int getTotalLeaves();

@@ -65,7 +65,6 @@ namespace XyzEmpManagerMenus {
 		            return chooseSubMenuTwoChoice();
                 return sChoice+EMP_TYPE_BASED_INFO;
             case EMP_GENDER_BASED_INFO/10:
-            //case 3:
                 cout << "1) Male Emps Info" << endl;
                 cout << "2) Female Emps Info" << endl;
                 cout << "Choose Employee gender : ";
@@ -104,6 +103,11 @@ namespace XyzEmpManagerMenus {
 
 
 XyzEmployeeManager::XyzEmployeeManager() {
+    // XyzEmployeeManager constructor
+    // maintains 2 EDLL pointers
+    // 1) active and inactive employees EDLL (list)
+    // 2) Resigned employees EDLL (list)
+    // EmpIDVal: used to assign ID values to Employees in sequence.
     cout << "I'm XyzEmployeeManager constructor" << endl;
     mActInactEmpDeuque = new EDLL<XyzEmpIfPtr>;
     mResignedEmpDeuque = new EDLL<XyzEmpIfPtr>;
@@ -111,6 +115,13 @@ XyzEmployeeManager::XyzEmployeeManager() {
 }
 
 XyzEmployeeManager::XyzEmployeeManager(unsigned int noOfEmpsParm) {
+    // XyzEmployeeManager constructor with n Emps as parameter
+    // maintains 2 EDLL pointers
+    // 1) active and inactive employees EDLL (list)
+    // 2) Resigned employees EDLL (list)
+    // EmpIDVal: used to assign ID values to Employees in sequence.
+    // creates employee of type randomly generated for noOfEmpsParm times
+    // keeps it into the appropriate EDLL based on the status of Employee (generated randomly)
     cout << "I'm XyzEmployeeManager constructor with num of employees :" << noOfEmpsParm << endl;
     mActInactEmpDeuque = new EDLL<XyzEmpIfPtr>;
     mResignedEmpDeuque = new EDLL<XyzEmpIfPtr>;
@@ -129,13 +140,15 @@ XyzEmployeeManager::XyzEmployeeManager(unsigned int noOfEmpsParm) {
 }
 
 XyzEmployeeManager::~XyzEmployeeManager() {
+    // XyzEmployeeManager destructor
+    // destroys the EDLL (nodes of Deque)
     cout << "I'm XyzEmployeeManger destructor" << endl;
     delete mActInactEmpDeuque;
     delete mResignedEmpDeuque;
 }
 
 void XyzEmployeeManager::addFullTimeEmployee() {
-    // this function creates and adds full time employee (XyzFullTimeEmployee) to the EDLL
+    // creates and adds full time employee (XyzFullTimeEmployee) to the EDLL
     XyzEmpIfPtr sNewEmp = new XyzFullTimeEmployee(mEmpIdVal);
     unsigned int sEmpStatus = sNewEmp->getStatus();
     if(sEmpStatus == ACTIVE || sEmpStatus == INACTIVE)
@@ -146,7 +159,7 @@ void XyzEmployeeManager::addFullTimeEmployee() {
 }
 
 void XyzEmployeeManager::addContractorEmployee() {
-    // this function creates and adds contractor employee (XyzContractorEmployee) to the EDLL
+    // creates and adds contractor employee (XyzContractorEmployee) to the EDLL
     XyzEmpIfPtr sNewEmp = new XyzContractorEmployee(mEmpIdVal);
     unsigned int sEmpStatus = sNewEmp->getStatus();
     if(sEmpStatus == ACTIVE || sEmpStatus == INACTIVE)
@@ -157,7 +170,7 @@ void XyzEmployeeManager::addContractorEmployee() {
 }
 
 void XyzEmployeeManager::addInternEmployee() {
-    // this function creates and adds Intern employee (XyzInternEmployee) to the EDLL
+    // creates and adds Intern employee (XyzInternEmployee) to the EDLL
     XyzEmpIfPtr sNewEmp = new XyzInternEmployee(mEmpIdVal);
     unsigned int sEmpStatus = sNewEmp->getStatus();
     if(sEmpStatus == ACTIVE || sEmpStatus == INACTIVE)
@@ -196,15 +209,13 @@ EDLL<XyzEmpIfPtr> * XyzEmployeeManager::getResignedEmpDeque() {
 }
 
 void XyzEmployeeManager::printEmpsInfo(unsigned int empTypeParm) {
-    // this function prints employee info based on their type (F/C/I)
+    // prints employee info based on their type (F/C/I) (table format)
     Node<XyzEmpIfPtr> * sEmpNode = NULL;
     XyzEmpIfPtr sEmpIf = NULL;
     sEmpNode = mActInactEmpDeuque->getHeadNode();
     sEmpIf = sEmpNode->getNodeData();
     sEmpIf->printHeader(cout,empTypeParm);
     while(sEmpNode) {
-        //if(sEmpIf->getEmpType() == empTypeParm)
-        //    cout << sEmpIf << endl;
         sEmpIf->print(cout,empTypeParm);
         sEmpNode = sEmpNode->getNextNode();
         if(sEmpNode)
@@ -213,8 +224,6 @@ void XyzEmployeeManager::printEmpsInfo(unsigned int empTypeParm) {
     sEmpNode = mResignedEmpDeuque->getHeadNode();
     sEmpIf = sEmpNode->getNodeData();
     while(sEmpNode) {
-        //if(sEmpIf->getEmpType() == empTypeParm)
-        //    cout << sEmpIf << endl;
         sEmpIf->print(cout,empTypeParm);
         sEmpNode = sEmpNode->getNextNode();
         if(sEmpNode)
@@ -223,10 +232,10 @@ void XyzEmployeeManager::printEmpsInfo(unsigned int empTypeParm) {
 }
 
 XyzEmpIfPtr XyzEmployeeManager::fetchEmp(unsigned int empIdParm, unsigned int *indexParm=NULL) {
+    // fetches EmployeeIf ptr matching empIdParm
     // if we pass unsigned int * indexParm as parameter then this function stores index of Node matching with
     // empIdParm in it (only from mActInactEmpDeuque)
     // this is useful when removing employee using ID
-    //cout << "fetchEmpBasedOnId" << endl;
     Node<XyzEmpIfPtr> * sEmpNode = NULL;
     XyzEmpIfPtr sEmpIf = NULL;
     sEmpNode = mActInactEmpDeuque->getHeadNode();
@@ -236,14 +245,10 @@ XyzEmpIfPtr XyzEmployeeManager::fetchEmp(unsigned int empIdParm, unsigned int *i
     unsigned int sEmpNodeIndex = 0;
     while(sEmpNode) {
         if(fetchEmpIdVal(sEmpIf->getId()) == empIdParm) {
-            //cout << "Printing Employee info" << endl;
-            //cout << sEmpIf << endl;
-            //sEmpIf->print(cout);
             if(indexParm)
                 *indexParm = sEmpNodeIndex;
             return sEmpIf;
         }
-        //sEmpIf->print(cout,empTypeParm);
         sEmpNode = sEmpNode->getNextNode();
         sEmpNodeIndex++;
         if(sEmpNode)
@@ -255,8 +260,6 @@ XyzEmpIfPtr XyzEmployeeManager::fetchEmp(unsigned int empIdParm, unsigned int *i
     sEmpIf = sEmpNode->getNodeData();
     while(sEmpNode) {
         if(fetchEmpIdVal(sEmpIf->getId()) == empIdParm) {
-            //sEmpIf->print(cout);
-            //cout << sEmpIf << endl;
             return sEmpIf;
         }
         sEmpNode = sEmpNode->getNextNode();
@@ -267,9 +270,8 @@ XyzEmpIfPtr XyzEmployeeManager::fetchEmp(unsigned int empIdParm, unsigned int *i
 }
 
 void XyzEmployeeManager::printEmpInfo(unsigned int empIdParm) {
-    // this function prints employee info based on their gender (male/female)
+    // prints emp info (key: value format) (single Employee info)
     XyzEmpIfPtr sEmpIf = fetchEmp(empIdParm);
-    //cout << "printEmpInfoBasedOnId" << endl;
     if(sEmpIf != NULL)
     {
         cout << sEmpIf << endl;
@@ -294,14 +296,10 @@ XyzEmpIfPtr XyzEmployeeManager::fetchEmp(string empNameParm, unsigned int *index
     unsigned int sEmpNodeIndex = 0;
     while(sEmpNode) {
         if(sEmpIf->getName() == empNameParm) {
-            //cout << "Printing Employee info" << endl;
-            //cout << sEmpIf << endl;
-            //sEmpIf->print(cout);
             if(indexParm)
                 *indexParm = sEmpNodeIndex;
             return sEmpIf;
         }
-        //sEmpIf->print(cout,empTypeParm);
         sEmpNode = sEmpNode->getNextNode();
         sEmpNodeIndex++;
         if(sEmpNode)
@@ -314,8 +312,6 @@ XyzEmpIfPtr XyzEmployeeManager::fetchEmp(string empNameParm, unsigned int *index
     sEmpIf = sEmpNode->getNodeData();
     while(sEmpNode) {
         if(sEmpIf->getName() == empNameParm) {
-            //sEmpIf->print(cout);
-            //cout << sEmpIf << endl;
             return sEmpIf;
         }
         sEmpNode = sEmpNode->getNextNode();
@@ -326,9 +322,8 @@ XyzEmpIfPtr XyzEmployeeManager::fetchEmp(string empNameParm, unsigned int *index
 }
 
 void XyzEmployeeManager::printEmpInfo(string empNameParm) {
-    // this function prints employee info based on their gender (male/female)
+    // prints emp info (key: value format) (single Employee info)
     XyzEmpIfPtr sEmpIf = fetchEmp(empNameParm);
-    //cout << "printEmpInfoBasedOnId" << endl;
     if(sEmpIf != NULL)
     {
         cout << sEmpIf << endl;
@@ -340,7 +335,7 @@ void XyzEmployeeManager::printEmpInfo(string empNameParm) {
 }
 
 void XyzEmployeeManager::addLeavesForFullTimers(unsigned int ftEmpLeavesParm) {
-    // this function adds leaves to the full time employees only who are not resigned employees.
+    // adds leaves to the full time employees only who are not resigned employees.
     Node<XyzEmpIfPtr> * sEmpNode = NULL;
     XyzEmpIfPtr sEmpIf = NULL;
     sEmpNode = mActInactEmpDeuque->getHeadNode();
@@ -350,7 +345,6 @@ void XyzEmployeeManager::addLeavesForFullTimers(unsigned int ftEmpLeavesParm) {
     sEmpIf = sEmpNode->getNodeData();
     while(sEmpNode) {
         sEmpIf->setTotalLeaves(ftEmpLeavesParm);
-        //sEmpIf->print(cout,empTypeParm);
         sEmpNode = sEmpNode->getNextNode();
         if(sEmpNode)
             sEmpIf = sEmpNode->getNodeData();
@@ -359,6 +353,7 @@ void XyzEmployeeManager::addLeavesForFullTimers(unsigned int ftEmpLeavesParm) {
 }
 
 void XyzEmployeeManager::convertInternToFulltimer(unsigned int empIdParm) {
+    // converts contractor to fulltimer
     unsigned int * sIndex = NULL;
     XyzEmpIfPtr sEmpIf = fetchEmp(empIdParm, sIndex);
     if(INTERN != sEmpIf->getEmpType()) {
@@ -378,6 +373,9 @@ void XyzEmployeeManager::convertInternToFulltimer(unsigned int empIdParm) {
 
 
 void XyzEmployeeManager::processEmployees() {
+    // displays the menu and submenus to user
+    // to let the user choose the option
+    // Employee manager performs corresponding operation
     unsigned int sMainMenuChoice;
     unsigned int sSubMenuOneChoice;
     unsigned int sSubMenuTwoChoice;
