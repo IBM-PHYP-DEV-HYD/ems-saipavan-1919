@@ -19,6 +19,7 @@ class XyzEmployee: public XyzEmployeeIf {
 	public:
 		//XyzEmployee(string, string, string, string);
 		XyzEmployee(unsigned int, unsigned int);
+		XyzEmployee(XyzEmployeeIf *);
 		string getName();
 		string getId();
 		unsigned int getEmpType();

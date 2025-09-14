@@ -43,7 +43,7 @@ enum SubMenuTwoChoices {
 };
 
 enum SubMenuThreeChoices {
-    ADD_LEAVES_FULLTIMERS,
+    ADD_LEAVES_FULLTIMERS=1,
     CONVERT_INTERN_FULLTIME,
     SEARCH_EMP_ID,
     SEARCH_EMP_NAME,
@@ -75,11 +75,15 @@ class XyzEmployeeManager {
         void addContractorEmployee();
         void addInternEmployee();
         void removeEmp(unsigned int);
+        void printEmpsInfo(unsigned int);
         void printEmpInfo(unsigned int);
-        void printEmpInfoBasedOnId(unsigned int);
-        XyzEmpIfPtr fetchEmpBasedOnId(unsigned int, unsigned int *);
+        void printEmpInfo(string);
+        XyzEmpIfPtr fetchEmp(unsigned int, unsigned int *);
+        XyzEmpIfPtr fetchEmp(string, unsigned int *);
         EDLL<XyzEmpIfPtr> * getActInactEmpDeque();
         EDLL<XyzEmpIfPtr> * getResignedEmpDeque();
+        void addLeavesForFullTimers(unsigned int);
+        void convertInternToFulltimer(unsigned int);
 };
 
 #endif

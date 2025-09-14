@@ -11,6 +11,7 @@ class XyzFullTimeEmployee:public XyzEmployee {
 	public:
 		//XyzFullTimeEmployee(string, string, string, string);
 		XyzFullTimeEmployee(unsigned int);
+		XyzFullTimeEmployee(XyzEmployeeIf *);
 		unsigned int getTotalLeaves();
 		unsigned int getAvailedLeaves();
 		void setTotalLeaves(unsigned int);

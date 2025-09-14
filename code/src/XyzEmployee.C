@@ -15,6 +15,19 @@ XyzEmployee::XyzEmployee(unsigned int idParm, unsigned int typeParm) {
 	mDOJ = RandEmpDataGen::getRandomEmpDoj(mDOB);
 }
 
+XyzEmployee::XyzEmployee(XyzEmployeeIf * empIfPtrParm) {
+	// copy constructor
+	cout << "I'm XyzEmployee copy constructor" << endl;
+	mType = empIfPtrParm->getEmpType();
+	mId = empIfPtrParm->getId();
+	mGender = empIfPtrParm->getGender();
+	mName = empIfPtrParm->getName();
+	mStatus = empIfPtrParm->getStatus();
+	mDOB = empIfPtrParm->getDob();
+	// DOJ need to be discussed whether to keep it same or update it.
+	mDOJ = empIfPtrParm->getDoj();
+}
+
 string XyzEmployee::getName() {
 	return mName;
 }

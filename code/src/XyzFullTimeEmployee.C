@@ -4,8 +4,16 @@
 //XyzFullTimeEmployee::XyzFullTimeEmployee(string nameParm, string idParm, string dobParm, string genderParm):XyzEmployee(nameParm, idParm, dobParm, genderParm) {
 XyzFullTimeEmployee::XyzFullTimeEmployee(unsigned int idParm):XyzEmployee(idParm, FULLTIMER) {
 	cout << "I'm XyzFullTimeEmployee constructor" << endl;
-	mTotalLeaves = 22; // EMP_TOTAL_LEAVES macro
+	//mTotalLeaves = 22; // EMP_TOTAL_LEAVES macro
+	mTotalLeaves = EMP_TOTAL_LEAVES;
 	mAvailedLeaves = RandEmpDataGen::getRanomEmpAvailedLeaves(mTotalLeaves);
+}
+
+XyzFullTimeEmployee::XyzFullTimeEmployee(XyzEmployeeIf * empPtrParm):XyzEmployee(empPtrParm) {
+	cout << "I'm Fulltime employee copy constructor" << endl;
+	this->setEmpType(FULLTIMER);
+	mTotalLeaves = EMP_TOTAL_LEAVES;
+	mAvailedLeaves = 0; // as we are converting some other type to full time
 }
 
 unsigned int XyzFullTimeEmployee::getTotalLeaves() {
@@ -63,18 +71,5 @@ ostream & XyzFullTimeEmployee::print(ostream & out, unsigned int empDataParm) {
 		out << "-\t|";   // Branch
 	}
 	out << "\n";
-	//out << endl;
-	//out << empDataParm << endl;
-	//out << CONTRACTOR_EMPS_INFO << endl;
-	//if(ALL_EMPS_INFO == empDataParm)
-	//	out << "All emp type : " << this->getEmpType() << endl;
-	//if((FULLTIMER_EMPS_INFO == empDataParm) && (FULLTIMER_EMPS_INFO%10== this->getEmpType()))
-	//	out << "I'm a Fulltimer" << endl;
-	/*else if((CONTRACTOR_EMPS_INFO == empDataParm) && (CONTRACTOR_EMPS_INFO%10== this->getEmpType()))
-		out << "I'm a Contractor" << endl;
-	else if((INTERN_EMPS_INFO == empDataParm) && (INTERN_EMPS_INFO%10 == this->getEmpType()))
-		out << "I'm a Intern" << endl;
-	//out << (*this);
-	*/
 	return out;
 }

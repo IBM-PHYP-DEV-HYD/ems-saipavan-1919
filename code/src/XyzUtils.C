@@ -57,6 +57,7 @@ unsigned int getNumOfEmps() {
 
 unsigned int fetchEmpIdVal(string empIdParm) {
 	// this function fetches only ID value from the employee id string
+	//cout << "fetchEmpIdVal" << endl;
 	string sIdVal;
 	for(int i=0;empIdParm[i]!='\0';i++) {
 		if(empIdParm[i]>'0' && empIdParm[i]<='9') {
