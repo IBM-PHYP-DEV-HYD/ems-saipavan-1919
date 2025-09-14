@@ -17,6 +17,7 @@ enum MainMenuChoices {
     REM_EMP,
     EMP_DETAILS,
     OTHERS,
+    EXIT,
 };
 
 enum SubMenuOneChoices {
@@ -70,6 +71,7 @@ class XyzEmployeeManager {
         XyzEmployeeManager();
         XyzEmployeeManager(unsigned int);
         void processEmployees();
+        ~XyzEmployeeManager();
     private:
         void addFullTimeEmployee();
         void addContractorEmployee();

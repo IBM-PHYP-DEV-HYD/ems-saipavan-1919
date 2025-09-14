@@ -8,6 +8,7 @@ namespace XyzEmpManagerMenus {
         cout << "2) Remove an Employee" << endl;
         cout << "3) Employee Details" << endl;
         cout << "4) others" << endl;
+        cout << "5) EXIT" << endl;
         cin >> sChoice;
         if(checkFixCinErr())
 		    return chooseMainMenuChoice();
@@ -125,6 +126,12 @@ XyzEmployeeManager::XyzEmployeeManager(unsigned int noOfEmpsParm) {
             addInternEmployee();
         noOfEmpsParm--;
     }
+}
+
+XyzEmployeeManager::~XyzEmployeeManager() {
+    cout << "I'm XyzEmployeeManger destructor" << endl;
+    delete mActInactEmpDeuque;
+    delete mResignedEmpDeuque;
 }
 
 void XyzEmployeeManager::addFullTimeEmployee() {
@@ -362,8 +369,6 @@ void XyzEmployeeManager::convertInternToFulltimer(unsigned int empIdParm) {
         cout << "Employee with ID : " << empIdParm << " already resigned, cannot convert.." << endl;
         return;
     }
-    // create a full time object
-    // based on the status type in fulltimer add details
     XyzEmpIfPtr sNewEmp = new XyzFullTimeEmployee(sEmpIf);
     removeEmp(empIdParm);
     mActInactEmpDeuque->pushBack(sNewEmp);
@@ -380,11 +385,8 @@ void XyzEmployeeManager::processEmployees() {
     unsigned int sEmpID;
     unsigned int sEmpLeaves;
     string sEmpName;
-    //XyzEmpIfPtr sEmpIf = NULL;
-    //unsigned int * sIndex = NULL;
     while(1) {
         sMainMenuChoice = XyzEmpManagerMenus::chooseMainMenuChoice();
-        //cout << sMainMenuChoice << endl;
         if(sMainMenuChoice == ADD_EMP) {
             sSubMenuOneChoice = XyzEmpManagerMenus::chooseSubMenuOneChoice();
             switch (sSubMenuOneChoice)
@@ -446,7 +448,6 @@ void XyzEmployeeManager::processEmployees() {
             }
             else if(sSubMenuThreeChoice == SEARCH_EMP_NAME) {
                 cout << "Enter Employee Name : ";
-                //cin >> sEmpName;
                 cin.ignore();
                 getline(cin,sEmpName);
                 cout << sEmpName << endl;
@@ -454,5 +455,7 @@ void XyzEmployeeManager::processEmployees() {
                     printEmpInfo(sEmpName);
             }
         }
+        else if(sMainMenuChoice == EXIT)
+            return;
     }
 }
