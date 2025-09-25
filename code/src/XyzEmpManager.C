@@ -185,6 +185,11 @@ void XyzEmployeeManager::removeEmp(unsigned int idParm) {
     // use the EDDL rem node at index method to remove it
     unsigned int sEmpNodeIndex = 0;
     XyzEmpIfPtr sEmpIf = fetchEmp(idParm, &sEmpNodeIndex);
+    cout << "After fetching Emp id in rem employee" << endl;
+    if(!sEmpIf) {
+		cout << "Unable to fetch the Emp with ID : " << idParm << endl;
+		return;
+	}
     if(RESIGNED == sEmpIf->getStatus()) {
         cout << "Employee is already removed and is in RESIGNED employee list" << endl;
         return;
@@ -221,14 +226,14 @@ void XyzEmployeeManager::printEmpsInfo(unsigned int empTypeParm) {
         if(sEmpNode)
             sEmpIf = sEmpNode->getNodeData();
     }
-    sEmpNode = mResignedEmpDeuque->getHeadNode();
-    sEmpIf = sEmpNode->getNodeData();
-    while(sEmpNode) {
-        sEmpIf->print(cout,empTypeParm);
-        sEmpNode = sEmpNode->getNextNode();
-        if(sEmpNode)
-            sEmpIf = sEmpNode->getNodeData();
-    }
+    //sEmpNode = mResignedEmpDeuque->getHeadNode();
+    //sEmpIf = sEmpNode->getNodeData();
+    //while(sEmpNode) {
+    //    sEmpIf->print(cout,empTypeParm);
+    //    sEmpNode = sEmpNode->getNextNode();
+    //    if(sEmpNode)
+    //        sEmpIf = sEmpNode->getNodeData();
+    //}
 }
 
 XyzEmpIfPtr XyzEmployeeManager::fetchEmp(unsigned int empIdParm, unsigned int *indexParm=NULL) {
