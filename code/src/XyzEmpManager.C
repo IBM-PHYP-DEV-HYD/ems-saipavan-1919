@@ -226,14 +226,16 @@ void XyzEmployeeManager::printEmpsInfo(unsigned int empTypeParm) {
         if(sEmpNode)
             sEmpIf = sEmpNode->getNodeData();
     }
-    //sEmpNode = mResignedEmpDeuque->getHeadNode();
-    //sEmpIf = sEmpNode->getNodeData();
-    //while(sEmpNode) {
-    //    sEmpIf->print(cout,empTypeParm);
-    //    sEmpNode = sEmpNode->getNextNode();
-    //    if(sEmpNode)
-    //        sEmpIf = sEmpNode->getNodeData();
-    //}
+    if(empTypeParm == RESIGNED_EMPS_INFO) {
+        sEmpNode = mResignedEmpDeuque->getHeadNode();
+        sEmpIf = sEmpNode->getNodeData();
+        while(sEmpNode) {
+            sEmpIf->print(cout,empTypeParm);
+            sEmpNode = sEmpNode->getNextNode();
+            if(sEmpNode)
+                sEmpIf = sEmpNode->getNodeData();
+        }
+    }
 }
 
 XyzEmpIfPtr XyzEmployeeManager::fetchEmp(unsigned int empIdParm, unsigned int *indexParm=NULL) {
