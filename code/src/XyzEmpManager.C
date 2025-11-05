@@ -26,7 +26,7 @@ namespace XyzEmpManagerMenus {
 		    return chooseSubMenuOneChoice();
         if(sChoice == ADD_RAND_EMP)
             return RandEmpDataGen::getRandomEmpType();
-        else {
+        else if(sChoice == ADD_RAND_EMP+1) {
             cout << "Choose Employee Type : " << endl;
             cout << "1) FullTimer" << endl;
             cout << "2) Contractor" << endl;
@@ -34,7 +34,18 @@ namespace XyzEmpManagerMenus {
             cin >> sChoice;
             if(checkFixCinErr())
 		        return chooseSubMenuOneChoice();
+            if(sChoice == FULLTIMER);
+            else if(sChoice == CONTRACTOR);
+            else if(sChoice == INTERN);
+            else {
+                cout << "Invalid Choice" << endl;
+                return chooseSubMenuOneChoice();
+            }
             return sChoice+1;
+        }
+        else {
+            cout << "Inalid choice" << endl;
+            return chooseSubMenuOneChoice();
         }
         return 0;
     }
@@ -51,6 +62,11 @@ namespace XyzEmpManagerMenus {
         cin >> sChoice;
         if(checkFixCinErr())
 		    return chooseSubMenuTwoChoice();
+        if(sChoice >= 1 && sChoice <= 5);
+        else {
+            cout << "Invalid choice" << endl;
+            return chooseSubMenuTwoChoice();
+        }
         switch(sChoice) {
             case ALL_EMPS_INFO/10:
                 return ALL_EMPS_INFO;
@@ -185,7 +201,7 @@ void XyzEmployeeManager::removeEmp(unsigned int idParm) {
     // use the EDDL rem node at index method to remove it
     unsigned int sEmpNodeIndex = 0;
     XyzEmpIfPtr sEmpIf = fetchEmp(idParm, &sEmpNodeIndex);
-    cout << "After fetching Emp id in rem employee" << endl;
+    //cout << "After fetching Emp id in rem employee" << endl;
     if(!sEmpIf) {
 		cout << "Unable to fetch the Emp with ID : " << idParm << endl;
 		return;
@@ -217,9 +233,15 @@ void XyzEmployeeManager::printEmpsInfo(unsigned int empTypeParm) {
     // prints employee info based on their type (F/C/I) (table format)
     Node<XyzEmpIfPtr> * sEmpNode = NULL;
     XyzEmpIfPtr sEmpIf = NULL;
+    int headerPatternCount = 0;
     sEmpNode = mActInactEmpDeuque->getHeadNode();
+    cout << "In printEmpsInfo" << endl;
+    if((!sEmpNode) && (empTypeParm != RESIGNED_EMPS_INFO)) {
+        cout << "No nodes/employees in Deque" << endl;
+        return;
+    }
     sEmpIf = sEmpNode->getNodeData();
-    sEmpIf->printHeader(cout,empTypeParm);
+    headerPatternCount = sEmpIf->printHeader(cout,empTypeParm);
     while(sEmpNode) {
         sEmpIf->print(cout,empTypeParm);
         sEmpNode = sEmpNode->getNextNode();
@@ -236,6 +258,7 @@ void XyzEmployeeManager::printEmpsInfo(unsigned int empTypeParm) {
                 sEmpIf = sEmpNode->getNodeData();
         }
     }
+    sEmpIf->printFooter(cout, headerPatternCount);
 }
 
 XyzEmpIfPtr XyzEmployeeManager::fetchEmp(unsigned int empIdParm, unsigned int *indexParm=NULL) {
@@ -247,7 +270,10 @@ XyzEmpIfPtr XyzEmployeeManager::fetchEmp(unsigned int empIdParm, unsigned int *i
     XyzEmpIfPtr sEmpIf = NULL;
     sEmpNode = mActInactEmpDeuque->getHeadNode();
     if(!sEmpNode)
+    {
+        cout << "No Employees in Deque" << endl;
         return NULL;
+    }
     sEmpIf = sEmpNode->getNodeData();
     unsigned int sEmpNodeIndex = 0;
     while(sEmpNode) {
@@ -260,6 +286,11 @@ XyzEmpIfPtr XyzEmployeeManager::fetchEmp(unsigned int empIdParm, unsigned int *i
         sEmpNodeIndex++;
         if(sEmpNode)
             sEmpIf = sEmpNode->getNodeData();
+        else {
+            if(indexParm)
+                *indexParm = -1;
+            break;
+        }
     }
     if(indexParm)
         *indexParm = -1;
@@ -459,8 +490,15 @@ void XyzEmployeeManager::processEmployees() {
                 if(!checkFixCinErr())
                     printEmpInfo(sEmpName);
             }
+            else {
+                cout << "Invalud choice" << endl;
+            }
         }
-        else if(sMainMenuChoice == EXIT)
+        else if(sMainMenuChoice == EXIT) {
             return;
+        }
+        else {
+            cout << "Invalid Choice" << endl;
+        }
     }
 }

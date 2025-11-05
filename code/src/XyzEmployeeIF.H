@@ -29,7 +29,8 @@ class XyzEmployeeIf {
 	virtual void setBranchName(string)=0;
 	virtual ostream & print(ostream &)=0;
 	virtual ostream & print(ostream &, unsigned int)=0;
-	virtual void printHeader(ostream &, unsigned int)=0;
+	virtual int printHeader(ostream &, unsigned int)=0;
+	virtual void printFooter(ostream &, unsigned int)=0;
 };
 
 inline ostream & operator<<(ostream & out, XyzEmployeeIf & SParm) {

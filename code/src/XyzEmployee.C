@@ -135,21 +135,44 @@ ostream & XyzEmployee::print(ostream & out) {
 	return out;
 }
 
-void XyzEmployee::printHeader(ostream & out, unsigned int empDataParm) {
+int XyzEmployee::printHeader(ostream & out, unsigned int empDataParm) {
 	// prints Header while printing Employee summary
-	out << "\nName\t\t\t|ID\t\t|Gender\t\t|Type\t\t|Status\t\t|DOB\t\t|DOJ\t\t|";
+	int sPatternCount = 0;
+	string sHeader = "";
+	sHeader += "\n|Name\t\t\t|ID\t\t|Gender\t\t|Type\t\t|Status\t\t|DOB\t\t|DOJ\t\t|";
 	if ((ALL_EMPS_INFO == empDataParm) || (EMP_GENDER_BASED_INFO/10 == empDataParm/10) || (EMP_STATUS_BASED_INFO/10 == empDataParm/10)) {
-		out << "Total Leaves\t|" << "Availed Leaves\t|" << "Agency Name\t|";
-		out << "College\t|" << "Branch\t|";
+		sHeader += "Total Leaves\t|Availed Leaves\t|Agency Name\t|College\t|Branch\t|";
 	}
 	else if(FULLTIMER_EMPS_INFO == empDataParm)
-		out << "Total Leaves\t|" << "Availed Leaves\t|";
+		sHeader += "Total Leaves\t|Availed Leaves\t|";
 	else if(CONTRACTOR_EMPS_INFO == empDataParm)
-		out << "Agency Name\t|";
+		sHeader += "Agency Name\t|";
 	else if(INTERN_EMPS_INFO == empDataParm)
-		out << "College\t|" << "Branch\t|";
+		sHeader += "College\t|Branch\t|";
+	sHeader += "\n";
+	sPatternCount = sHeader.length();
+	for(int i=0;i<sPatternCount;i++)
+	{
+		if(sHeader[i]=='\t')
+			sPatternCount += 4;
+	}
+	for(int i=0;i<sPatternCount;i++)
+		cout << "-";
+	out << endl;
+	out << sHeader;
+	for(int i=0;i<sPatternCount;i++)
+		cout << "-";
+	out << endl;
+	return sPatternCount;
+}
+
+void XyzEmployee::printFooter(ostream & out, unsigned int patternCountParm) {
+	// prints end portion while printing Employee summary
+	for(int i=0;i<patternCountParm;i++)
+		out << "-";
 	out << endl;
 }
+
 
 ostream & XyzEmployee::print(ostream & out, unsigned int empDataParm) {
 	// prints common employee details in table format
@@ -160,6 +183,7 @@ ostream & XyzEmployee::print(ostream & out, unsigned int empDataParm) {
 	else if(((EMP_STATUS_BASED_INFO/10 == empDataParm/10)&&(mStatus == empDataParm%10)));
 	else
 		return out;
+	out << "|";
 	out << getName() << "\t\t|";
 	out << getId() << "\t\t|";
 	unsigned int sEmpGender = getGender();

@@ -41,7 +41,8 @@ class XyzEmployee: public XyzEmployeeIf {
 		virtual ostream & print(ostream & out);
 		virtual ostream & print(ostream & out, unsigned int);
 		friend ostream& operator<<(ostream &, XyzEmployee &);
-		void printHeader(ostream & out, unsigned int);
+		int printHeader(ostream & out, unsigned int);
+		void printFooter(ostream & out, unsigned int);
 };
 
 #endif

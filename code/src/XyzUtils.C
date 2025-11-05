@@ -84,7 +84,7 @@ namespace RandEmpDataGen {
 		string sName = first_names[GenderParm-1][getRandomNumber(0,NUM_NAMES)];
 		sName += " ";
 		sName += last_names[GenderParm-1][getRandomNumber(0,NUM_NAMES)];
-		cout << "Name : " << sName << endl;
+		//cout << "Name : " << sName << endl;
 		return sName;
 	}
 
