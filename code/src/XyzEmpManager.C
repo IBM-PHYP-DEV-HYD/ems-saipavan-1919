@@ -234,22 +234,28 @@ void XyzEmployeeManager::printEmpsInfo(unsigned int empTypeParm) {
     Node<XyzEmpIfPtr> * sEmpNode = NULL;
     XyzEmpIfPtr sEmpIf = NULL;
     int headerPatternCount = 0;
-    sEmpNode = mActInactEmpDeuque->getHeadNode();
-    cout << "In printEmpsInfo" << endl;
-    if((!sEmpNode) && (empTypeParm != RESIGNED_EMPS_INFO)) {
-        cout << "No nodes/employees in Deque" << endl;
-        return;
-    }
-    sEmpIf = sEmpNode->getNodeData();
-    headerPatternCount = sEmpIf->printHeader(cout,empTypeParm);
-    while(sEmpNode) {
-        sEmpIf->print(cout,empTypeParm);
-        sEmpNode = sEmpNode->getNextNode();
-        if(sEmpNode)
-            sEmpIf = sEmpNode->getNodeData();
+    if(empTypeParm != RESIGNED_EMPS_INFO) {
+        sEmpNode = mActInactEmpDeuque->getHeadNode();
+        if(!sEmpNode) {
+            cout << "No nodes/employees in Deque" << endl;
+            return;
+        }
+        sEmpIf = sEmpNode->getNodeData();
+        headerPatternCount = sEmpIf->printHeader(cout,empTypeParm);
+        while(sEmpNode) {
+            sEmpIf->print(cout,empTypeParm);
+            sEmpNode = sEmpNode->getNextNode();
+            if(sEmpNode)
+                sEmpIf = sEmpNode->getNodeData();
+        }
     }
     if(empTypeParm == RESIGNED_EMPS_INFO) {
         sEmpNode = mResignedEmpDeuque->getHeadNode();
+        cout << sEmpNode << endl;
+        if(!sEmpNode) {
+            cout << "No nodes/employees in Deque" << endl;
+            return;
+        }
         sEmpIf = sEmpNode->getNodeData();
         while(sEmpNode) {
             sEmpIf->print(cout,empTypeParm);
@@ -396,6 +402,8 @@ void XyzEmployeeManager::convertInternToFulltimer(unsigned int empIdParm) {
     // converts contractor to fulltimer
     unsigned int * sIndex = NULL;
     XyzEmpIfPtr sEmpIf = fetchEmp(empIdParm, sIndex);
+    if(!sEmpIf)
+        return; // no employees
     if(INTERN != sEmpIf->getEmpType()) {
         cout << "Entered employee Id is not of Intern Employee, please retry.." << endl;
         return;
