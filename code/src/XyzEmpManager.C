@@ -251,12 +251,12 @@ void XyzEmployeeManager::printEmpsInfo(unsigned int empTypeParm) {
     }
     if(empTypeParm == RESIGNED_EMPS_INFO) {
         sEmpNode = mResignedEmpDeuque->getHeadNode();
-        cout << sEmpNode << endl;
         if(!sEmpNode) {
             cout << "No nodes/employees in Deque" << endl;
             return;
         }
         sEmpIf = sEmpNode->getNodeData();
+        headerPatternCount = sEmpIf->printHeader(cout,empTypeParm);
         while(sEmpNode) {
             sEmpIf->print(cout,empTypeParm);
             sEmpNode = sEmpNode->getNextNode();
