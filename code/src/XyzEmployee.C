@@ -72,6 +72,7 @@ void XyzEmployee::setDoj(string DojParm) {
 
 ostream& operator<<(ostream & out, XyzEmployee & SParm) {
 	// << operator overloading function
+	cout << "operator<< XyzEmployee" << endl;
 	SParm.print(out);
 	return out;
 }

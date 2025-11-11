@@ -7,7 +7,7 @@ using namespace std;
 int main() {
 	// main function initializes the XyzEmmployeeManager object
 	unsigned int sNoOfEmps = RandEmpDataGen::getRandomNumber(4,10);
-	//sNoOfEmps = 0;
+	sNoOfEmps = 0;
 	cout << "Number of Emps : " << sNoOfEmps << endl;
 	if(sNoOfEmps) {
 		XyzEmployeeManager sMgr(sNoOfEmps);

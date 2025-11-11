@@ -312,7 +312,8 @@ void XyzEmployeeManager::printEmpInfo(unsigned int empIdParm) {
     XyzEmpIfPtr sEmpIf = fetchEmp(empIdParm);
     if(sEmpIf != NULL)
     {
-        cout << sEmpIf << endl;
+        sEmpIf->print(cout);
+        //cout << sEmpIf << endl;
     }
     else {
         cout << "Could not find Employee with ID : " << empIdParm << endl;
@@ -364,7 +365,8 @@ void XyzEmployeeManager::printEmpInfo(string empNameParm) {
     XyzEmpIfPtr sEmpIf = fetchEmp(empNameParm);
     if(sEmpIf != NULL)
     {
-        cout << sEmpIf << endl;
+        //cout << sEmpIf << endl;
+        sEmpIf->print(cout);
     }
     else {
         cout << "Could not find Employee with Name : " << empNameParm << endl;

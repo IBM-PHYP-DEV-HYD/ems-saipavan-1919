@@ -33,7 +33,7 @@ class XyzEmployeeIf {
 	virtual void printFooter(ostream &, unsigned int)=0;
 };
 
-inline ostream & operator<<(ostream & out, XyzEmployeeIf & SParm) {
+/*inline ostream & operator<<(ostream & out, XyzEmployeeIf & SParm) {
 	out << "operator<< of XyzEmployeeIf reference" << endl;
 	SParm.print(out);
 	return out;
@@ -44,5 +44,6 @@ inline ostream & operator<<(ostream & out, XyzEmployeeIf * SParm) {
 	SParm->print(out);
 	return out;
 }
+*/
 
 #endif
