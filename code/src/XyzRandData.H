@@ -1,0 +1,37 @@
+#ifndef XYZRANDDATA_H
+#define XYZRANDDATA_H
+
+
+enum EmpTypes {
+	FULLTIMER=1,
+	CONTRACTOR,
+	INTERN,
+};
+
+enum EmpGender {
+	MALE=1,
+	FEMALE,
+};
+
+enum EmpStatus {
+	ACTIVE=1,
+	INACTIVE,
+	RESIGNED,
+};
+
+#define EMP_CURYEAR 2025
+#define EMP_TOTAL_LEAVES 22
+
+
+enum EmpPrintSpecificParms {
+	PRINT_FULLTIMER,
+	PRINT_CONTRACTOR,
+    PRINT_INTERN,
+    PRINT_MALE,
+	PRINT_FEMALE,
+    PRINT_ACTIVE,
+	PRINT_INACTIVE,
+	PRINT_RESIGNED,
+};
+
+#endif  // XYZRANDDATA_H
